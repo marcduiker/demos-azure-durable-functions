@@ -5,9 +5,9 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace DurableFunctionsDemo.Functions
 {
-    public static class GetNames
+    public static class CollectNames
     {
-        [FunctionName("GetNames")]
+        [FunctionName("CollectNames")]
         public static async Task<List<string>> Run(
             [OrchestrationTrigger]DurableOrchestrationContext context,
             TraceWriter log)
