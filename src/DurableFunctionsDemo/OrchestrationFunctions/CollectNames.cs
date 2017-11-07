@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace DurableFunctionsDemo.Functions
+namespace DurableFunctionsDemo.OrchestrationFunctions
 {
     public static class CollectNames
     {
