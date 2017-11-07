@@ -12,11 +12,7 @@ namespace DurableFunctionsDemo.Functions
             [OrchestrationTrigger]DurableOrchestrationContext context,
             TraceWriter log)
         {
-            var names = context.GetInput<List<string>>();
-            if (names == null)
-            {
-                names = new List<string>();
-            }
+            var names = context.GetInput<List<string>>() ?? new List<string>();
 
             var nameTask = context.WaitForExternalEvent<string>("addname");
             var isCompletedTask = context.WaitForExternalEvent<bool>("iscompleted");
@@ -39,7 +35,6 @@ namespace DurableFunctionsDemo.Functions
             {
                 context.ContinueAsNew(names);
             }
-
 
             return names;
         }
