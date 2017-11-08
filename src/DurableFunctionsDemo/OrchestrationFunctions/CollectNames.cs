@@ -12,31 +12,36 @@ namespace DurableFunctionsDemo.OrchestrationFunctions
             [OrchestrationTrigger]DurableOrchestrationContext context,
             TraceWriter log)
         {
-            var names = context.GetInput<List<string>>() ?? new List<string>();
+            var nameList = context.GetInput<List<string>>() ?? new List<string>();
 
-            var nameTask = context.WaitForExternalEvent<string>("addname");
+            var addNameTask = context.WaitForExternalEvent<string>("addname");
+            var removeNameTask = context.WaitForExternalEvent<string>("removename");
             var isCompletedTask = context.WaitForExternalEvent<bool>("iscompleted");
 
-            var resultingEvent = await Task.WhenAny(nameTask, isCompletedTask);
+            var resultingEvent = await Task.WhenAny(addNameTask, removeNameTask, isCompletedTask);
 
-            if (resultingEvent == nameTask)
+            if (resultingEvent == addNameTask)
             {
-                string name = nameTask.Result;
-                names.Add(name);
-                log.Info($"Added {name} to the list.");
+                nameList.Add(addNameTask.Result);
+                log.Info($"Added {addNameTask.Result} to the list.");
+            }
+            else if (resultingEvent == removeNameTask)
+            {
+                nameList.Remove(removeNameTask.Result);
+                log.Info($"Removed {removeNameTask.Result} from the list.");
             }
 
             if (resultingEvent == isCompletedTask &&
                 isCompletedTask.Result)
             {
-                log.Info("Completed adding names.");
+                log.Info("Completed updating the list.");
             }
             else
             {
-                context.ContinueAsNew(names);
+                context.ContinueAsNew(nameList);
             }
 
-            return names;
+            return nameList;
         }
     }
 }
