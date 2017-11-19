@@ -1,0 +1,64 @@
+### Start the CollectNames orchestration function
+POST http://localhost:7071/api/orchestration/CollectNames
+
+### Call the statusQueryGetUri as showw in the CollectNames response.
+# IDs in this uri will be different on your machine and need to be replaced!
+GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/b5370db53b2943f7865ef68a221078e6?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+
+### Raise the 'addname' event from the UpdateCollection function
+# IMPORTANT: update the orchestrationInstanceId so it matches
+# the 'id' field of the CollectNames response.
+POST http://localhost:7071/api/UpdateCollection
+content-type: application/json
+
+{
+    "orchestrationInstanceId": "b5370db53b2943f7865ef68a221078e6", 
+    "eventName": "addname",
+    "name": "Ada Lovelace"
+}
+
+###
+
+POST http://localhost:7071/api/UpdateCollection
+content-type: application/json
+
+{
+    "orchestrationInstanceId": "b5370db53b2943f7865ef68a221078e6", 
+    "eventName": "addname",
+    "name": "Margaret Hamilton"
+}
+
+###
+
+POST http://localhost:7071/api/UpdateCollection
+content-type: application/json
+
+{
+    "orchestrationInstanceId": "b5370db53b2943f7865ef68a221078e6", 
+    "eventName": "addname",
+    "name": "Grace Hopper"
+}
+
+### Trigger the 'removename' event from the UpdateCollection function
+# IMPORTANT: update the orchestrationInstanceId so it matches
+# the 'id' field of the CollectNames response.
+POST http://localhost:7071/api/UpdateCollection
+content-type: application/json
+
+{
+    "orchestrationInstanceId": "b5370db53b2943f7865ef68a221078e6", 
+    "eventName": "removename",
+    "name": "Ada Lovelace"
+}
+
+### Raise the 'iscompleted' event from the CompleteCollection function
+# IMPORTANT: update the orchestrationInstanceId so it matches
+# the id field of the CollectNames response.
+POST http://localhost:7071/api/CompleteCollection
+content-type: application/json
+
+{
+    "orchestrationInstanceId": "b5370db53b2943f7865ef68a221078e6", 
+    "eventName": "isCompleted",
+    "isCompleted": true
+}
