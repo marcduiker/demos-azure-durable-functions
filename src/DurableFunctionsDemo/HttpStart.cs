@@ -15,8 +15,6 @@ namespace DurableFunctionsDemo
             string functionName,
             TraceWriter log)
         {
-            log.Info("HttpStart triggered.");
-
             dynamic eventData = await req.Content.ReadAsAsync<object>();
             string instanceId = await orchestrationClient.StartNewAsync(functionName, eventData);
 
