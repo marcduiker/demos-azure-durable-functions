@@ -12,15 +12,17 @@ namespace DurableFunctionsDemo.EventFunctions
     {
         [FunctionName("UpdateCollection")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "UpdateCollection")]HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", "delete", Route = "Collection/Update")]HttpRequestMessage req,
             [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
             TraceWriter log)
         {
             var eventData = await req.Content.ReadAsAsync<UpdateCollectionEventData>();
 
+            string eventName = req.Method == HttpMethod.Delete ? EventNames.RemoveName : EventNames.AddName;
+
             await orchestrationClient.RaiseEventAsync(
                 eventData.OrchestrationInstanceId,
-                eventData.EventName,
+                eventName,
                 eventData.Name);
 
              return req.CreateResponse(HttpStatusCode.OK);

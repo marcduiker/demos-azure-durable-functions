@@ -10,9 +10,9 @@ namespace DurableFunctionsDemo.EventFunctions
 {
     public static class CompleteCollection
     {
-        [FunctionName("UpdateCollection")]
+        [FunctionName("CompleteCollection")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "CompleteCollection")]HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Collection/Complete")]HttpRequestMessage req,
             [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
             TraceWriter log)
         {
@@ -20,7 +20,7 @@ namespace DurableFunctionsDemo.EventFunctions
 
             await orchestrationClient.RaiseEventAsync(
                 eventData.OrchestrationInstanceId,
-                eventData.EventName,
+                EventNames.IsCompleted,
                 eventData.IsCompleted);
 
              return req.CreateResponse(HttpStatusCode.OK);

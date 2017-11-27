@@ -4,8 +4,6 @@
     {
         public string OrchestrationInstanceId { get; set; }
 
-        public string EventName => "isCompleted";
-
         public bool IsCompleted { get; set; }
 
     }

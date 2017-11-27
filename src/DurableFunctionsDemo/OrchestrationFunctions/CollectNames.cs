@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DurableFunctionsDemo.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
@@ -14,9 +15,9 @@ namespace DurableFunctionsDemo.OrchestrationFunctions
         {
             var nameList = context.GetInput<List<string>>() ?? new List<string>();
 
-            var addNameTask = context.WaitForExternalEvent<string>("addname");
-            var removeNameTask = context.WaitForExternalEvent<string>("removename");
-            var isCompletedTask = context.WaitForExternalEvent<bool>("iscompleted");
+            var addNameTask = context.WaitForExternalEvent<string>(EventNames.AddName);
+            var removeNameTask = context.WaitForExternalEvent<string>(EventNames.RemoveName);
+            var isCompletedTask = context.WaitForExternalEvent<bool>(EventNames.IsCompleted);
 
             var resultingEvent = await Task.WhenAny(addNameTask, removeNameTask, isCompletedTask);
 
