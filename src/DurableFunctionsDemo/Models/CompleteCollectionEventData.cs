@@ -5,6 +5,5 @@
         public string OrchestrationInstanceId { get; set; }
 
         public bool IsCompleted { get; set; }
-
     }
 }
