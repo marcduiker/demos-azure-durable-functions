@@ -3,7 +3,7 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace DurableFunctionsDemo.OrchestrationFunctions
 {
-    public static class HelloWorld
+    public static class BestMeetupFinder
     {
         [FunctionName("HelloWorld")]
         public static string Run(

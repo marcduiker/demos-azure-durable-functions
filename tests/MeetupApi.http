@@ -1,0 +1,44 @@
+### Example of using the Meetup API
+
+@meetupkey = 
+### Find groups based on text search
+@text = Azure Thursdays
+GET https://api.meetup.com/find/groups
+    ?key={{meetupkey}}
+    &sign=true
+    &text={{text}}
+    &page=5
+
+### Retrieve a group based on its group_urlname
+@groupname = Azure-Thursdays
+GET https://api.meetup.com/2/groups
+    ?key={{meetupkey}}
+    &sign=true
+    &group_urlname={{groupname}}
+    &page=1
+
+### Retrieve events of a group based on its group_urlname
+@groupname = Azure-Thursdays
+GET https://api.meetup.com/2/events
+    ?key={{meetupkey}}
+    &sign=true
+    &group_urlname={{groupname}}
+    &page=5
+
+### Get the first event of a given meetup group
+
+@groupname = Azure-Thursdays
+GET https://api.meetup.com/{{groupname}}/events
+    ?key={{meetupkey}}
+    &sign=true
+    &page=1
+
+###
+POST http://localhost:7071/api/orchestration/MeetupFinder
+content-type: application/json
+
+{
+    "searchText" : "Microsoft",
+    "withinNumberOfDays" : 30
+}
+

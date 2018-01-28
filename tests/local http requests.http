@@ -1,9 +1,11 @@
 ### Start the CollectNames orchestration function
 POST http://localhost:7071/api/orchestration/CollectNames
 
+@orchestrationInstanceId = 27a32e51153f4c69a20588120f9bf21e
+
 ### Call the statusQueryGetUri as showw in the CollectNames response.
 # IDs in this uri will be different on your machine and need to be replaced!
-GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/27a32e51153f4c69a20588120f9bf21e?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
 
 ### Raise the 'addname' event from the UpdateCollection function
 # IMPORTANT: update the orchestrationInstanceId so it matches
@@ -12,7 +14,7 @@ POST http://localhost:7071/api/Collection/Update
 content-type: application/json
 
 {
-    "orchestrationInstanceId": "27a32e51153f4c69a20588120f9bf21e", 
+    "orchestrationInstanceId": "{{orchestrationInstanceId}}", 
     "name": "Ada Lovelace"
 }
 
@@ -21,7 +23,7 @@ POST http://localhost:7071/api/Collection/Update
 content-type: application/json
 
 {
-    "orchestrationInstanceId": "27a32e51153f4c69a20588120f9bf21e", 
+    "orchestrationInstanceId": "{{orchestrationInstanceId}}", 
     "name": "Margaret Hamilton"
 }
 
@@ -30,7 +32,7 @@ POST http://localhost:7071/api/Collection/Update
 content-type: application/json
 
 {
-    "orchestrationInstanceId": "27a32e51153f4c69a20588120f9bf21e", 
+    "orchestrationInstanceId": "{{orchestrationInstanceId}}", 
     "name": "Grace Hopper"
 }
 
@@ -41,7 +43,7 @@ DELETE http://localhost:7071/api/Collection/Update
 content-type: application/json
 
 {
-    "orchestrationInstanceId": "27a32e51153f4c69a20588120f9bf21e", 
+    "orchestrationInstanceId": "{{orchestrationInstanceId}}", 
     "name": "Ada Lovelace"
 }
 
@@ -52,7 +54,7 @@ POST http://localhost:7071/api/Collection/Complete
 content-type: application/json
 
 {
-    "orchestrationInstanceId": "27a32e51153f4c69a20588120f9bf21e", 
+    "orchestrationInstanceId": "{{orchestrationInstanceId}}", 
     "isCompleted": true
 }
 
@@ -61,8 +63,8 @@ content-type: application/json
 # the id field of the CollectNames response.
 #
 # Replace {eventName} with the name of the event you want to raise
-#    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/27a32e51153f4c69a20588120f9bf21e/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
-POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/27a32e51153f4c69a20588120f9bf21e/raiseEvent/addname?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+#    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/addname?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
 content-type: application/json
 
 "Barbara Liskov"
@@ -72,8 +74,8 @@ content-type: application/json
 # the id field of the CollectNames response.
 #
 # Replace {eventName} with the name of the event you want to raise
-#    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/27a32e51153f4c69a20588120f9bf21e/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
-POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/27a32e51153f4c69a20588120f9bf21e/raiseEvent/iscompleted?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+#    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/iscompleted?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
 content-type: application/json
 
 true
