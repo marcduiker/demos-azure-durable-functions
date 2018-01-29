@@ -29,11 +29,11 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.ActivityFunctions
 
         private static string ConstructEventUri(MeetupTravelInfoInput input)
         {
-            string meetupGroupUri = Environment.GetEnvironmentVariable("MeetupBaseUri"); //"https://api.meetup.com/2/groups";
+            string meetupGroupUri = Environment.GetEnvironmentVariable("MeetupBaseUri");
             var queryString = HttpUtility.ParseQueryString(string.Empty);
             queryString["page"] = "1";
             queryString["sign"] = "true";
-            queryString["key"] = Environment.GetEnvironmentVariable("MeetupApiKey"); //"47314f70190564b117f59764e46173";
+            queryString["key"] = Environment.GetEnvironmentVariable("MeetupApiKey");
 
             return $"{meetupGroupUri}/{input.MeetupGroupUrlName}/events/?{queryString}";
         }

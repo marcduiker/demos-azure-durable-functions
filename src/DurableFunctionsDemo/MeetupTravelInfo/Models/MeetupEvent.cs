@@ -5,7 +5,7 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.Models
     public class MeetupEvent
     {
         [JsonProperty("time")]
-        public long EpochTime { get; set; }
+        public long UnixTimeMilliseconds { get; set; }
 
         [JsonProperty("local_date")]
         public string LocalDate { get; set; }
