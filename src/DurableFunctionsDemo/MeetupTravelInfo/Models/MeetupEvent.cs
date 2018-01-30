@@ -4,6 +4,10 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.Models
 {
     public class MeetupEvent
     {
+        public string Name { get; set; }
+
+        public Group Group { get; set; }
+
         [JsonProperty("time")]
         public long UnixTimeMilliseconds { get; set; }
 
@@ -14,6 +18,11 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.Models
         public string LocalTime { get; set; }
 
         public Venue Venue { get; set; }
+    }
+
+    public class Group
+    {
+        public string Name { get; set; }
     }
 
     public class Venue

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,21 +27,24 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.ActivityFunctions
             var travelDurationToken = JToken.Parse(directionResult).SelectToken("routes[0].legs[0].duration_in_traffic");
             int travelDurationSeconds = travelDurationToken.Value<int>("value");
 
-            long bufferSeconds =  Convert.ToInt64(TimeSpan.FromMinutes(10).TotalSeconds);
+            int bufferSeconds =  Convert.ToInt32(TimeSpan.FromMinutes(10).TotalSeconds);
             long departureUnixTime = input.EventStartUnixTimeSeconds - travelDurationSeconds - bufferSeconds;
-            string travelDurationText = $"{(travelDurationSeconds + bufferSeconds) / 60} minutes";
+            int durationSeconds = travelDurationSeconds + bufferSeconds;
 
-            return CreateTravelInfo(departureUnixTime, travelDurationText, input);
+            return CreateTravelInfo(departureUnixTime, durationSeconds, input);
         }
 
-        private static TravelInfo CreateTravelInfo(long departureUnixTime, string travelDurationText, TravelTimeInput input)
+        private static TravelInfo CreateTravelInfo(long departureUnixTime, int durationSeconds, TravelTimeInput input)
         {
             return new TravelInfo
             {
                 DepartureTime = departureUnixTime.FromUnixTime().ToLocalTime().ToString("F"),
                 DepartureUnixTimeSeconds = departureUnixTime,
                 Destination = input.DestinationAddress,
-                Duration = travelDurationText
+                DurationSeconds = durationSeconds,
+                DurationText = $"{durationSeconds / 60} minutes",
+                EventName = input.EventName,
+                GroupName = input.GroupName
             };
         }
 
@@ -62,7 +64,7 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.ActivityFunctions
         {
             string directionsUri = Environment.GetEnvironmentVariable("GoogleDirectionsBaseUri");
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-            queryString["origin"] = input.OriginAddress;
+            queryString["origin"] = input.DepartureAddress;
             queryString["destination"] = input.DestinationAddress;
             queryString["mode"] = input.TravelMode;
             queryString["traffic_model"] = input.TrafficModel;

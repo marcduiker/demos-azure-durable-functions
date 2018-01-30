@@ -4,7 +4,7 @@
     {
         public string MeetupGroupUrlName { get; set; }
 
-        public string OriginAddress { get; set; }
+        public string DepartureAddress { get; set; }
 
         public string TravelMode { get; set; }
     }

@@ -6,24 +6,22 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace DurableFunctionsDemo.EventFunctions
+namespace DurableFunctionsDemo.EternalOchestrationsAndEvents.EventFunctions
 {
-    public static class UpdateCollection
+    public static class CompleteCollection
     {
-        [FunctionName("UpdateCollection")]
+        [FunctionName("CompleteCollection")]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", "delete", Route = "Collection/Update")]HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "Collection/Complete")]HttpRequestMessage req,
             [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
             TraceWriter log)
         {
-            var eventData = await req.Content.ReadAsAsync<UpdateCollectionEventData>();
-
-            string eventName = req.Method == HttpMethod.Delete ? EventNames.RemoveName : EventNames.AddName;
+            var eventData = await req.Content.ReadAsAsync<CompleteCollectionEventData>();
 
             await orchestrationClient.RaiseEventAsync(
                 eventData.OrchestrationInstanceId,
-                eventName,
-                eventData.Name);
+                EventNames.IsCompleted,
+                eventData.IsCompleted);
 
              return req.CreateResponse(HttpStatusCode.OK);
         }

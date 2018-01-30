@@ -2,7 +2,7 @@
 {
     public class TravelTimeInput
     {
-        public string OriginAddress { get; set; }
+        public string DepartureAddress { get; set; }
 
         public string DestinationAddress { get; set; }
 
@@ -11,5 +11,9 @@
         public string TrafficModel { get; set; }
 
         public long EventStartUnixTimeSeconds { get; set; }
+
+        public string EventName { get; set; }
+
+        public string GroupName { get; set; }
     }
 }
