@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using DurableFunctionsDemo.MeetupTravelInfo.Models;
+using DurableTask.Core.Exceptions;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json.Linq;
@@ -23,15 +24,24 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.ActivityFunctions
             var httpClient = new HttpClient();
             var result = await httpClient.GetAsync(endpointUri);
             var directionResult = result.Content.ReadAsStringAsync().Result;
+            try
+            {
+                var travelDurationToken = JToken.Parse(directionResult)
+                    .SelectToken("routes[0].legs[0].duration_in_traffic");
+                int travelDurationSeconds = travelDurationToken.Value<int>("value");
 
-            var travelDurationToken = JToken.Parse(directionResult).SelectToken("routes[0].legs[0].duration_in_traffic");
-            int travelDurationSeconds = travelDurationToken.Value<int>("value");
+                int bufferSeconds = Convert.ToInt32(TimeSpan.FromMinutes(10).TotalSeconds);
+                int durationSeconds = travelDurationSeconds + bufferSeconds;
+                long departureUnixTime = input.EventStartUnixTimeSeconds - durationSeconds;
 
-            int bufferSeconds =  Convert.ToInt32(TimeSpan.FromMinutes(10).TotalSeconds);
-            long departureUnixTime = input.EventStartUnixTimeSeconds - travelDurationSeconds - bufferSeconds;
-            int durationSeconds = travelDurationSeconds + bufferSeconds;
-
-            return CreateTravelInfo(departureUnixTime, durationSeconds, input);
+                return CreateTravelInfo(departureUnixTime, durationSeconds, input);
+            }
+            catch (Exception e)
+            {
+                string error = JToken.Parse(directionResult).SelectToken("error_message").Value<string>();
+                log.Error(error, e);
+                throw new TaskFailedException(error, e);
+            }
         }
 
         private static TravelInfo CreateTravelInfo(long departureUnixTime, int durationSeconds, TravelTimeInput input)

@@ -1,15 +1,15 @@
 ### Start the CollectNames orchestration function
 POST http://localhost:7071/api/orchestration/CollectNames
+content-type: application/json
 
-@orchestrationInstanceId = 27a32e51153f4c69a20588120f9bf21e
+### Update this orchestrationInstanceId so it matches the ID of your
+### running orchestration instance.
+@orchestrationInstanceId = 325f0cb0594848fab69e6a746a46fd61
 
 ### Call the statusQueryGetUri as showw in the CollectNames response.
-# IDs in this uri will be different on your machine and need to be replaced!
 GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
 
 ### Raise the 'addname' event from the UpdateCollection function
-# IMPORTANT: update the orchestrationInstanceId so it matches
-# the 'id' field of the CollectNames response.
 POST http://localhost:7071/api/Collection/Update
 content-type: application/json
 
@@ -37,8 +37,6 @@ content-type: application/json
 }
 
 ### Trigger the 'removename' event from the UpdateCollection function
-# IMPORTANT: update the orchestrationInstanceId so it matches
-# the 'id' field of the CollectNames response.
 DELETE http://localhost:7071/api/Collection/Update
 content-type: application/json
 
@@ -48,8 +46,6 @@ content-type: application/json
 }
 
 ### Raise the 'iscompleted' event from the CompleteCollection function
-# IMPORTANT: update the orchestrationInstanceId so it matches
-# the id field of the CollectNames response.
 POST http://localhost:7071/api/Collection/Complete
 content-type: application/json
 
@@ -59,9 +55,6 @@ content-type: application/json
 }
 
 ### Raise 'addname' event using the sendEventPostUri
-# IMPORTANT: update the orchestrationInstanceId so it matches
-# the id field of the CollectNames response.
-#
 # Replace {eventName} with the name of the event you want to raise
 #    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
 POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/addname?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
@@ -70,9 +63,6 @@ content-type: application/json
 "Barbara Liskov"
 
 ### Raise 'iscompleted' event using the sendEventPostUri
-# IMPORTANT: update the orchestrationInstanceId so it matches
-# the id field of the CollectNames response.
-#
 # Replace {eventName} with the name of the event you want to raise
 #    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
 POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/iscompleted?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==

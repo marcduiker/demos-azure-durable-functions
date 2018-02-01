@@ -15,8 +15,8 @@ namespace DurableFunctionsDemo
             string functionName,
             TraceWriter log)
         {
-            dynamic eventData = await req.Content.ReadAsAsync<object>();
-            string instanceId = await orchestrationClient.StartNewAsync(functionName, eventData);
+            dynamic functionData = await req.Content.ReadAsAsync<object>();
+            string instanceId = await orchestrationClient.StartNewAsync(functionName, functionData);
 
             log.Info($"Started orchestration with ID = '{instanceId}'.");
 

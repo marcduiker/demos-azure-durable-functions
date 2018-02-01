@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using DurableFunctionsDemo.MeetupTravelInfo.Models;
+using DurableTask.Core.Exceptions;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
@@ -15,7 +17,10 @@ namespace DurableFunctionsDemo.MeetupTravelInfo
             var meetupTravelInfoInput = orchestrationContext.GetInput<MeetupTravelInfoInput>();
             var meetupEvent = await orchestrationContext.CallActivityAsync<MeetupEvent>("GetNextEventForGroup", meetupTravelInfoInput);
             var travelTimeInput = GetTravelTimeInput(meetupTravelInfoInput, meetupEvent);
-            var travelInfoResult = await orchestrationContext.CallActivityAsync<TravelInfo>("GetTravelTime", travelTimeInput);
+            var travelInfoResult = await orchestrationContext
+                .CallActivityAsync<TravelInfo>(
+                    "GetTravelTime",
+                    travelTimeInput);
 
             return travelInfoResult;
         }

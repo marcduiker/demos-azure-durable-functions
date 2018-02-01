@@ -4,7 +4,8 @@
     "AzureWebJobsStorage": "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1:10002/",
     "AzureWebJobsDashboard": "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1:10002/",
     "MeetupBaseUri": "https://api.meetup.com/",
-    "MeetupApiKey": "47314f70190564b117f59764e46173",
-    "GoogleApiKey": "AIzaSyCkTrr3XwGNTJf9v1PvFJrtZb597bzj-2I"
+    "MeetupApiKey": "%MEETUP_API_KEY%",
+    "GoogleDirectionsBaseUri": "https://maps.googleapis.com/maps/api/directions/",
+    "GoogleApiKey": "%GOOGLE_API_KEY%"
   }
 }

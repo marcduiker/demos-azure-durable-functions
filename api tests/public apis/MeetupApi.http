@@ -1,6 +1,21 @@
 ### Example of using the Meetup API
+# Enter a valid Meetup API key before you call the endpoints.
+@meetupkey = %MEETUP_API_KEY%
 
-@meetupkey = 
+### Get the first event of a given meetup group
+@groupname = Azure-Thursdays
+GET https://api.meetup.com/{{groupname}}
+    ?key={{meetupkey}}
+    &sign=true
+    &page=2
+
+### Find upcoming events matching the text
+GET https://api.meetup.com/find/upcoming_events
+    ?key={{meetupkey}}
+    &sign=true
+    &page=5
+    &text=azure
+
 ### Find groups based on text search
 @text = Azure Thursdays
 GET https://api.meetup.com/find/groups
@@ -24,21 +39,4 @@ GET https://api.meetup.com/2/events
     &sign=true
     &group_urlname={{groupname}}
     &page=5
-
-### Get the first event of a given meetup group
-
-@groupname = Azure-Thursdays
-GET https://api.meetup.com/{{groupname}}/events
-    ?key={{meetupkey}}
-    &sign=true
-    &page=1
-
-###
-POST http://localhost:7071/api/orchestration/MeetupFinder
-content-type: application/json
-
-{
-    "searchText" : "Microsoft",
-    "withinNumberOfDays" : 30
-}
 
