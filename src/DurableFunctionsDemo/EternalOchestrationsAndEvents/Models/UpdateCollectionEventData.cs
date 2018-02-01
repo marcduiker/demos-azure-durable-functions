@@ -1,4 +1,4 @@
-﻿namespace DurableFunctionsDemo.Models
+﻿namespace DurableFunctionsDemo.EternalOchestrationsAndEvents.Models
 {
     public class UpdateCollectionEventData
     {

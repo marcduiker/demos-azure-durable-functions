@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DurableFunctionsDemo.Models;
+using DurableFunctionsDemo.EternalOchestrationsAndEvents.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace DurableFunctionsDemo.OrchestrationFunctions
+namespace DurableFunctionsDemo.EternalOchestrationsAndEvents
 {
     public static class CollectNames
     {

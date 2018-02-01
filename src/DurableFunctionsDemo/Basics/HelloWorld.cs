@@ -1,7 +1,7 @@
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace DurableFunctionsDemo.OrchestrationFunctions
+namespace DurableFunctionsDemo.Basics
 {
     public static class HelloWorld
     {
@@ -11,7 +11,6 @@ namespace DurableFunctionsDemo.OrchestrationFunctions
             TraceWriter log)
         {
             string name = context.GetInput<string>();
-            log.Info($"HelloWorld function triggered with: {name}.");
 
             return $"Hello {name}";
         }

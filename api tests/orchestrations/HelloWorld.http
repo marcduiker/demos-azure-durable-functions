@@ -1,0 +1,15 @@
+### Call the Hello World Orchestration Function
+POST http://localhost:7071/api/orchestration/HelloWorld
+content-type: application/json
+
+"Azure-Thursday"
+
+### Check the status of the Hello World function.
+### Update this orchestrationInstanceId so it matches the ID of your
+### running orchestration instance.
+@orchestrationInstanceId = 3a7d11a6115d44169285f29cb8a762be
+
+GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code=3F2oUSLBZALkMA7QxHvaaokuq5Ph/W487ZqydJY1mTaFBni82zlfhQ==

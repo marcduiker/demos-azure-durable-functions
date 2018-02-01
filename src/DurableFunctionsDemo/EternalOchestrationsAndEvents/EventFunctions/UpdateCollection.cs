@@ -1,12 +1,12 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DurableFunctionsDemo.Models;
+using DurableFunctionsDemo.EternalOchestrationsAndEvents.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace DurableFunctionsDemo.EventFunctions
+namespace DurableFunctionsDemo.EternalOchestrationsAndEvents.EventFunctions
 {
     public static class UpdateCollection
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace DurableFunctionsDemo.Models
+namespace DurableFunctionsDemo.EternalOchestrationsAndEvents.Models
 {
     public static class EventNames
     {
