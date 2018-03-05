@@ -12,18 +12,18 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.ActivityFunctions
 {
     public static class GetTravelTime
     {
+        private static readonly HttpClient HttpClient = new HttpClient();
+
         [FunctionName("GetTravelTime")]
         public static async Task<TravelInfo> Run(
             [ActivityTrigger]DurableActivityContext activityContext,
             TraceWriter log)
         {
             var input = activityContext.GetInput<TravelTimeInput>();
-
             string endpointUri = ConstructDirectionsUri(input);
 
-            var httpClient = new HttpClient();
-            var result = await httpClient.GetAsync(endpointUri);
-            var directionResult = result.Content.ReadAsStringAsync().Result;
+            var result = await HttpClient.GetAsync(endpointUri);
+            var directionResult = await result.Content.ReadAsStringAsync();
             try
             {
                 var travelDurationToken = JToken.Parse(directionResult)

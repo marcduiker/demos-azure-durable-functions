@@ -3,15 +3,16 @@ POST http://localhost:7071/api/orchestration/MeetupTravelInfo
 content-type: application/json
 
 {
-    "meetupGroupUrlName" : "azure-thursdays",
-    "departureAddress" : "knab, hoofddorp",
+    "meetupGroupUrlName" : "Dutch-Azure-Meetup",
+    "departureAddress" : "Xpirit, Hilversum",
     "travelMode" : "driving"
 }
 
-### Update this orchestrationInstanceId so it matches the ID of your
+### Update the orchestrationInstanceId and code variables so they match up with your
 ### running orchestration instance.
-@instanceid = 645f09dac19941d39316135af7a6e83c
+@instanceid = ab3d06c719a1407bb386fd49f70e0bcf
+@code = 07hP1FGqaUDMJSQK5S8WaViVCA//XyU5gwgSnGvNc770aaUuFwT9hA== 
 GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{instanceid}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
-    &code=3F2oUSLBZALkMA7QxHvaaokuq5Ph/W487ZqydJY1mTaFBni82zlfhQ==
+    &code={{code}}
