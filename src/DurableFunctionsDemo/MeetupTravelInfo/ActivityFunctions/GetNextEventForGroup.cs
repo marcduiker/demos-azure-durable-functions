@@ -11,18 +11,18 @@ namespace DurableFunctionsDemo.MeetupTravelInfo.ActivityFunctions
 {
     public static class GetNextEventForGroup
     {
+        private static readonly HttpClient HttpClient = new HttpClient();
+
         [FunctionName("GetNextEventForGroup")]
         public static async Task<MeetupEvent> Run(
             [ActivityTrigger]DurableActivityContext activityContext,
             TraceWriter log)
         {
             var input = activityContext.GetInput<MeetupTravelInfoInput>();
-
             string endpointUri = ConstructEventUri(input);
-
-            var httpClient = new HttpClient();
-            var result = await httpClient.GetAsync(endpointUri);
-            var meetupEvents = result.Content.ReadAsAsync<MeetupEvent[]>().Result;
+            
+            var result = await HttpClient.GetAsync(endpointUri);
+            var meetupEvents = await result.Content.ReadAsAsync<MeetupEvent[]>();
 
             return meetupEvents.FirstOrDefault();
         }
