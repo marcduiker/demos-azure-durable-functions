@@ -7,9 +7,9 @@ content-type: application/json
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 3a7d11a6115d44169285f29cb8a762be
-
-GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}
+@orchestrationInstanceId = 3744faf6ea414b9db7ea78bf4bbde5da
+@storageCode = scEVI3MOp7XGcgKSHgY4FHYoS37Zln4PAv0gORrT6Cy5faorGNzUaw==
+GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
-    &code=3F2oUSLBZALkMA7QxHvaaokuq5Ph/W487ZqydJY1mTaFBni82zlfhQ==
+    &code={{storageCode}}

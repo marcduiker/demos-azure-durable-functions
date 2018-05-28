@@ -4,10 +4,13 @@ content-type: application/json
 
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 325f0cb0594848fab69e6a746a46fd61
-
+@orchestrationInstanceId = 641fb80601ab40bb90a14c4b30fb0505
+@storageCode = scEVI3MOp7XGcgKSHgY4FHYoS37Zln4PAv0gORrT6Cy5faorGNzUaw==
 ### Call the statusQueryGetUri as showw in the CollectNames response.
-GET http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code={{storageCode}}
 
 ### Raise the 'addname' event from the UpdateCollection function
 POST http://localhost:7071/api/Collection/Update
@@ -56,16 +59,22 @@ content-type: application/json
 
 ### Raise 'addname' event using the sendEventPostUri
 # Replace {eventName} with the name of the event you want to raise
-#    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
-POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/addname?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+#    http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+POST http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/addname
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code={{storageCode}}
 content-type: application/json
 
 "Barbara Liskov"
 
 ### Raise 'iscompleted' event using the sendEventPostUri
 # Replace {eventName} with the name of the event you want to raise
-#    http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
-POST http://localhost:7071/admin/extensions/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/iscompleted?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+#    http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/{eventName}?taskHub=DurableFunctionsHub&connection=Storage&code=CpDU0DzwZ8D1b3hUQPEXqdHIF0uVt3UWN6ziywdkcvYIcSNOJUxoHg==
+POST http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}/raiseEvent/iscompleted
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code={{storageCode}}
 content-type: application/json
 
 true
