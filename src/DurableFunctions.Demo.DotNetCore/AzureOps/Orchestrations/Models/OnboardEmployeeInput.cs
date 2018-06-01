@@ -15,6 +15,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models
         public string Location { get; set; }
 
         [JsonProperty(ItemConverterType=typeof(StringEnumConverter))]
+
         public Environment[] Environments { get; set; }
     }
 }

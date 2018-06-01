@@ -1,4 +1,5 @@
-﻿using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+﻿using System.Collections.Generic;
+using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
 {
@@ -9,6 +10,9 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
         public string ResourceGroupName { get; set; }
 
         public string UserThreeLetterCode { get; set; }
+
         public Environment Environment { get; set; }
+
+        public Dictionary<string, string> Tags { get; set; }
     }
 }

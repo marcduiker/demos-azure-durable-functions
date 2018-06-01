@@ -5,6 +5,7 @@ using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Rest.Azure;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
 {
@@ -25,7 +26,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
                 var user = await AzureManagement.Instance.Authenticated.AccessManagement
                     .ActiveDirectoryUsers
                     .Define(input.UserName)
-                    .WithEmailAlias(GetEmailAddress(input.UserName))
+                    .WithEmailAlias(input.UserName)
                     .WithPassword(DefaultPassWord)
                     .WithPromptToChangePasswordOnLogin(true)
                     .WithUsageLocation(CountryISOCode.Parse(input.CountryIsoCode))
@@ -37,7 +38,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
                 };
 
             }
-            catch (Exception e)
+            catch (CloudException e)
             {
                 logger.Error(e.Message, e);
                 throw;

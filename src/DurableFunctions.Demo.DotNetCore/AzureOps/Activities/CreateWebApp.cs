@@ -28,6 +28,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
                     .WithRegion(input.Region)
                     .WithExistingResourceGroup(input.ResourceGroupName)
                     .WithNewWindowsPlan(PricingTier.BasicB1)
+                    .WithTags(input.Tags)
                     .CreateAsync();
                 
                 return new CreateWebAppOutput

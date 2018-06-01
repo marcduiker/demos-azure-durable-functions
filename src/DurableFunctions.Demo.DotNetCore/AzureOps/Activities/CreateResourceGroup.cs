@@ -11,7 +11,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
     public static class CreateResourceGroup
     {
         [FunctionName(nameof(CreateResourceGroup))]
-        public static async Task<ResourceGroupInner> Run(
+        public static async Task<CreateResourceGroupOutput> Run(
             [ActivityTrigger] DurableActivityContext activityContext,
             TraceWriter logger)
         {
@@ -22,9 +22,10 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
                 var resourceGroupToCreate = await AzureManagement.Instance.Authenticated.ResourceGroups
                     .Define(input.ResourceGroupName)
                     .WithRegion(input.Region)
+                    .WithTags(input.Tags)
                     .CreateAsync();
 
-                return resourceGroupToCreate.Inner;
+                return new CreateResourceGroupOutput { ResourceGroupId = resourceGroupToCreate.Inner.Id };
             }
             catch (Exception e)
             {
