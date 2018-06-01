@@ -2,8 +2,9 @@
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
 {
-    public sealed class GetAzureRegionOutput
+    public sealed class GetRegionAndCountryCodeOutput
     {
+        public string CountryIsoCode { get; set; }
         public string Region { get; set; }
     }
 }

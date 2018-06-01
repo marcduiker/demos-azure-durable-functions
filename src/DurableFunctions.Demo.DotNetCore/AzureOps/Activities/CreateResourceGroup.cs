@@ -19,7 +19,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
 
             try
             {
-                var resourceGroupToCreate = await AzureManagement.Instance.AzureApi.ResourceGroups
+                var resourceGroupToCreate = await AzureManagement.Instance.Authenticated.ResourceGroups
                     .Define(input.ResourceGroupName)
                     .WithRegion(input.Region)
                     .CreateAsync();

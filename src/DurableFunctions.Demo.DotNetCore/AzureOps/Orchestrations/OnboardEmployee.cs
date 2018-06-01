@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
-using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models;
-using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
@@ -22,27 +20,35 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
         {
             var input = context.GetInput<OnboardEmployeeInput>();
 
-            var getAzureRegionInput = CreateGetAzureRegionInput(input.Location);
-            var getAzureRegionOutput = await context.CallActivityAsync<GetAzureRegionOutput>(
-                nameof(GetAzureRegion),
-                getAzureRegionInput);
+            var getCountryAndRegionInput = CreateRegionAndCountryCodeInput(input.Location);
+            var getCountryAndRegionOutput = await context.CallActivityAsync<GetRegionAndCountryCodeOutput>(
+                nameof(GetRegionAndCountryCode),
+                getCountryAndRegionInput);
 
+            var addUserInput = CreateAddUserInput(input, getCountryAndRegionOutput);
+
+            var addUserOutput = await context.CallActivityAsync<AddUserOutput>(
+                nameof(AddUser), 
+                addUserInput);
+            
             IEnumerable<string> resourceGroupNames = await GetResourceGroupNames(
                 context,
                 input);
 
             IEnumerable<string> resourceGroupIds = await CreateResourceGroups(
                 context,
-                getAzureRegionOutput.Region,
+                getCountryAndRegionOutput,
                 resourceGroupNames);
+            
+            // Create App Service Plan(s) for the Environments
+            
+            // Notify user
 
-
-            // Check what VM type/size belongs to the role
-
-            // Create VM
-            //await context.CallActivityAsync();
-
-            return new OnboardEmployeeOutput {ResourceGroupIDs = resourceGroupIds.ToArray()};
+            return new OnboardEmployeeOutput
+            {
+                Email = addUserOutput.Email,
+                ResourceGroupIDs = resourceGroupIds.ToArray()
+            };
         }
 
         private static async Task<IEnumerable<string>> GetResourceGroupNames(
@@ -70,7 +76,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
 
         private static async Task<IEnumerable<string>> CreateResourceGroups(
             DurableOrchestrationContextBase context,
-            string region,
+            GetRegionAndCountryCodeOutput regionAndCountry,
             IEnumerable<string> resourceGroupNames)
         {
             var tasks = new List<Task<CreateResourceGroupOutput>>();
@@ -78,7 +84,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             {
 
                 var createResourceGroupInput = CreateResourceGroupInput(
-                    region,
+                    regionAndCountry,
                     resourceGroupName);
                 tasks.Add(context.CallActivityAsync<CreateResourceGroupOutput>(
                     nameof(CreateResourceGroup),
@@ -91,9 +97,23 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             return tasks.Select(task => task.Result.ResourceGroup.Id).ToList();
         }
 
-        private static GetAzureRegionInput CreateGetAzureRegionInput(string userLocation)
+        private static AddUserInput CreateAddUserInput(
+            OnboardEmployeeInput input,
+            GetRegionAndCountryCodeOutput regionAndCountry)
         {
-            return new GetAzureRegionInput { UserLocation = userLocation };
+            return new AddUserInput
+            {
+                CountryIsoCode = regionAndCountry.CountryIsoCode,
+                UserName = input.UserName
+            };
+        }
+
+        private static GetRegionAndCountryCodeInput CreateRegionAndCountryCodeInput(string userLocation)
+        {
+            return new GetRegionAndCountryCodeInput
+            {
+                UserLocation = userLocation
+            };
         }
 
         private static GetResourceGroupNameInput CreateGetResourceGroupNameInput(
@@ -108,13 +128,13 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
         }
 
         private static CreateResourceGroupInput CreateResourceGroupInput(
-            string region,
+            GetRegionAndCountryCodeOutput regionAndCountry,
             string resourceGroupName
             )
         {
             return new CreateResourceGroupInput
             {
-                Region = region,
+                Region = regionAndCountry.Region,
                 ResourceGroupName = resourceGroupName
             };
         }

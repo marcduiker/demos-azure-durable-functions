@@ -13,6 +13,12 @@ You will need API keys in order to get these functions running.
 3. Find and replace `%GOOGLE_API_KEY%` and
 `%MEETUP_API_KEY%` with the obtained API keys in `local.settings.json` in order to run & debug the orchestration functions locally. (You should also replace them in the http files located in the `public apis` folder if you want to directly interact with the Meetup of Google APIs).
 
+## Azure Ops
+
+The Azure Ops functions require a service principal. Info how to create one can be found here:
+https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal
+
+
 ## Using the VS Code REST Client
 
 I strongly recommend to the excellent [REST client](https://github.com/Huachao/vscode-restclient) for VS Code so you can use the http files located in the `api tests` folder to start the orchestration functions (and make calls to the Meetup and Google Directions APIs).

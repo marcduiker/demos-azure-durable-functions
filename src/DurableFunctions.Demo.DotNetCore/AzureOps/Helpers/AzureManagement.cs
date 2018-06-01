@@ -8,9 +8,9 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Helpers
     public class AzureManagement
     {
         private static AzureManagement _azureManagement;
-        private readonly IAzure _azure;
+        private readonly IAzure _authenticated;
 
-        public IAzure AzureApi => _azure;
+        public IAzure Authenticated => _authenticated;
 
         static AzureManagement()
         {
@@ -18,14 +18,14 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Helpers
 
         private AzureManagement()
         {
-            string applicationId = Environment.GetEnvironmentVariable("AzureOpsAppServicePrincipalApplicationId");
-            string key = Environment.GetEnvironmentVariable("AzureOpsKey1Value");
+            string applicationId = Environment.GetEnvironmentVariable("WriteAzureOpsAppServicePrincipalApplicationId");
+            string key = Environment.GetEnvironmentVariable("WriteAzureOpsKey1Value");
             string tenantId = Environment.GetEnvironmentVariable("TenantId");
             string subscriptionId = Environment.GetEnvironmentVariable("SubscriptionId");
             AzureCredentials credentials =
                 new AzureCredentialsFactory().FromServicePrincipal(applicationId, key, tenantId,
                     AzureEnvironment.AzureGlobalCloud);
-            _azure = Azure.Authenticate(credentials).WithSubscription(subscriptionId);
+            _authenticated = Azure.Authenticate(credentials).WithSubscription(subscriptionId);
         }
 
         public static AzureManagement Instance

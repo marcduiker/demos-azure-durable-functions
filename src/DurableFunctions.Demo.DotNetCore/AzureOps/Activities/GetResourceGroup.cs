@@ -14,7 +14,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
             TraceWriter logger)
         {
             string resourceGroup = activityContext.GetInput<string>();
-            var resourceGroupFound = await AzureManagement.Instance.AzureApi.ResourceGroups.GetByNameAsync(resourceGroup);
+            var resourceGroupFound = await AzureManagement.Instance.Authenticated.ResourceGroups.GetByNameAsync(resourceGroup);
 
             return resourceGroupFound.Inner;
         }
