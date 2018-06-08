@@ -6,7 +6,7 @@ using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
 {
@@ -15,7 +15,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
         [FunctionName(nameof(OnboardEmployee))]
         public static async Task<OnboardEmployeeOutput> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
-            TraceWriter logger
+            ILogger logger
             )
         {
             var input = context.GetInput<OnboardEmployeeInput>();
@@ -24,11 +24,6 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             var getCountryAndRegionOutput = await context.CallActivityAsync<GetRegionAndCountryCodeOutput>(
                 nameof(GetRegionAndCountryCode),
                 getCountryAndRegionInput);
-
-            //var addUserInput = CreateAddUserInput(input, getCountryAndRegionOutput);
-            //var addUserOutput = await context.CallActivityAsync<AddUserOutput>(
-            //    nameof(AddUser), 
-            //    addUserInput);
             
             Dictionary<string, Environment> resourceGroupNamesAndEnvironments = await GetResourceGroupsAndEnvironments(
                 context,

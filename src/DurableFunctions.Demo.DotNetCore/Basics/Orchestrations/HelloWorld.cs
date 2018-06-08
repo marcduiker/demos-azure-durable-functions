@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.Basics.Activities;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
 {
@@ -10,7 +10,7 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
         [FunctionName(nameof(HelloWorld))]
         public static async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContext context,
-            TraceWriter log)
+            ILogger log)
         {
             var result = await context.CallActivityAsync<string>(
                 nameof(HelloWorldActivity),

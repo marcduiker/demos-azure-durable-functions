@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Activities
@@ -14,7 +14,7 @@ namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Activities
         [FunctionName(nameof(GetUpcomingEventsByText))]
         public static async Task<MeetupEvent[]> Run(
             [ActivityTrigger]DurableActivityContext activityContext,
-            TraceWriter log)
+            ILogger log)
         {
             var input = activityContext.GetInput<FindClosestMeetupsInput>();
 

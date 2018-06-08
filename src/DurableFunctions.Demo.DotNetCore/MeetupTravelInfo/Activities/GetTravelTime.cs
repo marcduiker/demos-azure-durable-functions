@@ -5,7 +5,7 @@ using System.Web;
 using DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Models;
 using DurableTask.Core.Exceptions;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Activities
@@ -17,7 +17,7 @@ namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Activities
         [FunctionName(nameof(GetTravelTime))]
         public static async Task<TravelInfo> Run(
             [ActivityTrigger]DurableActivityContext activityContext,
-            TraceWriter log)
+            ILogger log)
         {
             var input = activityContext.GetInput<TravelTimeInput>();
             string endpointUri = ConstructDirectionsUri(input);
@@ -39,7 +39,7 @@ namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Activities
             catch (Exception e)
             {
                 string error = JToken.Parse(directionResult).SelectToken("error_message").Value<string>();
-                log.Error(error, e);
+                log.LogError(error, e);
                 throw new TaskFailedException(error, e);
             }
         }

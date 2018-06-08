@@ -1,5 +1,5 @@
 ﻿using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
 {
@@ -8,7 +8,7 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
         [FunctionName(nameof(HelloWorldActivity))]
         public static string Run(
             [ActivityTrigger] DurableActivityContext activityContext,
-            TraceWriter logger)
+            ILogger logger)
         {
             return "Hello World";
         }

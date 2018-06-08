@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Orchestrations
 {
@@ -10,7 +10,7 @@ namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Orchestrations
         [FunctionName(nameof(MeetupTravelInfo))]
         public static async Task<TravelInfo> Run(
             [OrchestrationTrigger]DurableOrchestrationContext orchestrationContext,
-            TraceWriter log)
+            ILogger log)
         {
             var meetupTravelInfoInput = orchestrationContext.GetInput<MeetupTravelInfoInput>();
             var meetupEvent = await orchestrationContext.CallActivityAsync<MeetupEvent>(

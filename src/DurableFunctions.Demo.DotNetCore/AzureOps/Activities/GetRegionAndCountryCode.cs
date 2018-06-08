@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
 {
@@ -12,7 +12,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
         [FunctionName(nameof(GetRegionAndCountryCode))]
         public static GetRegionAndCountryCodeOutput Run(
             [ActivityTrigger] DurableActivityContext activityContext,
-            TraceWriter logger)
+            ILogger logger)
         {
             var input = activityContext.GetInput<GetRegionAndCountryCodeInput>();
             var result = new GetRegionAndCountryCodeOutput();
@@ -26,7 +26,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
                 // The default
                 result.CountryIsoCode = CountryISOCode.Netherlands.Value;
                 result.Region = Region.EuropeWest.Name;
-                logger.Warning($"Default values are used for user location: {input.UserLocation}.");
+                logger.LogWarning($"Default values are used for user location: {input.UserLocation}.");
             }
 
             return result;

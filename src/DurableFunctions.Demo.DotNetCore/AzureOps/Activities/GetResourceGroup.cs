@@ -2,7 +2,7 @@
 using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
 {
@@ -11,7 +11,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
         [FunctionName(nameof(GetResourceGroup))]
         public static async Task<ResourceGroupInner> Run(
             [ActivityTrigger] DurableActivityContext activityContext,
-            TraceWriter logger)
+            ILogger logger)
         {
             string resourceGroup = activityContext.GetInput<string>();
             var resourceGroupFound = await AzureManagement.Instance.Authenticated.ResourceGroups.GetByNameAsync(resourceGroup);

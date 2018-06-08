@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Orchestrations
 {
@@ -12,7 +12,7 @@ namespace DurableFunctions.Demo.DotNetCore.MeetupTravelInfo.Orchestrations
         [FunctionName(nameof(FindClosestMeetups))]
         public static async Task<TravelInfo[]> Run(
             [OrchestrationTrigger]DurableOrchestrationContext orchestrationContext,
-            TraceWriter log)
+            ILogger log)
         {
             var input = orchestrationContext.GetInput<FindClosestMeetupsInput>();
             var meetupEvents = await orchestrationContext.CallActivityAsync<MeetupEvent[]>("GetUpcomingEventsByText", input);

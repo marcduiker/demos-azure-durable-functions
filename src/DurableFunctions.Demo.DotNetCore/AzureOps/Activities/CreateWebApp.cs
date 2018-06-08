@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
 using Microsoft.Azure.Management.AppService.Fluent;
-using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using Environment = DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels.Environment;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
@@ -15,7 +14,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
         [FunctionName(nameof(CreateWebApp))]
         public static async Task<CreateWebAppOutput> Run(
             [ActivityTrigger] DurableActivityContext activityContext,
-            TraceWriter logger)
+            ILogger logger)
         {
             var input = activityContext.GetInput<CreateWebAppInput>();
 
@@ -39,7 +38,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
             }
             catch (Exception e)
             {
-                logger.Error(e.Message, e);
+                logger.LogError(e.Message);
                 throw;
             }
         }

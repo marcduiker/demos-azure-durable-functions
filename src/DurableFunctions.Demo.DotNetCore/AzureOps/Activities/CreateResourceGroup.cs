@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
-using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
 {
@@ -13,7 +12,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
         [FunctionName(nameof(CreateResourceGroup))]
         public static async Task<CreateResourceGroupOutput> Run(
             [ActivityTrigger] DurableActivityContext activityContext,
-            TraceWriter logger)
+            ILogger logger)
         {
             var input = activityContext.GetInput<CreateResourceGroupInput>();
 
@@ -29,7 +28,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
             }
             catch (Exception e)
             {
-                logger.Error(e.Message, e);
+                logger.LogError(e.Message);
                 throw;
             }
         }
