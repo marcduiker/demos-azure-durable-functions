@@ -1,7 +1,9 @@
-﻿namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
+﻿using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
 {
     public sealed class CreateWebAppOutput
     {
-        public string AppName { get; set; }
+        public CreatedResource CreatedResource { get; set; }
     }
 }

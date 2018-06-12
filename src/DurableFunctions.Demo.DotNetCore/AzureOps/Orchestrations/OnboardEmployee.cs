@@ -29,27 +29,34 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
                 context,
                 input);
 
-            IEnumerable<string> resourceGroupIds = await CreateResourceGroups(
-                context,
-                getCountryAndRegionOutput,
-                resourceGroupNamesAndEnvironments,
-                input.UserName);
+            var createdResources = new List<CreatedResource>();
 
-            // Create App Service Plan(s) for the Environments
-            IEnumerable<string> webAppNames = await CreateWebApps(
-                context,
-                getCountryAndRegionOutput,
-                resourceGroupNamesAndEnvironments,
-                input.UserThreeLetterCode,
-                input.UserName);
+            createdResources.AddRange( 
+                await CreateResourceGroups(
+                    context,
+                    getCountryAndRegionOutput,
+                    resourceGroupNamesAndEnvironments,
+                    input.UserName));
 
-            // Notify user
+            createdResources.AddRange(
+                await CreateWebApps(
+                    context,
+                    getCountryAndRegionOutput,
+                    resourceGroupNamesAndEnvironments,
+                    input.UserThreeLetterCode,
+                    input.UserName));
+
+            var slackInput = new SendSlackNotificationInput
+            {
+                Message = "Created Azure Resources",
+                CreatedResources = createdResources.ToArray(),
+                User = input.UserName
+            };
+            await context.CallActivityAsync(nameof(SendSlackNotification), slackInput);
 
             return new OnboardEmployeeOutput
             {
-                //Email = addUserOutput.Email,
-                WebAppIDs = webAppNames.ToArray(),
-                ResourceGroupIDs = resourceGroupIds.ToArray()
+                CreatedResources = createdResources.ToArray()
             };
         }
 
@@ -76,7 +83,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             return tasks.Select(task => new KeyValuePair<string, Environment>(task.Result.ResourceGroup, task.Result.Environment)).ToDictionary(p=> p.Key, p=> p.Value);
         }
 
-        private static async Task<IEnumerable<string>> CreateResourceGroups(
+        private static async Task<IEnumerable<CreatedResource>> CreateResourceGroups(
             DurableOrchestrationContextBase context,
             GetRegionAndCountryCodeOutput regionAndCountry,
             IDictionary<string, Environment> resourceGroupsAndEnvironments,
@@ -97,10 +104,10 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
 
             await Task.WhenAll(tasks);
 
-            return tasks.Select(task => task.Result.ResourceGroupId).ToList();
+            return tasks.Select(task => task.Result.CreatedResource).ToList();
         }
 
-        private static async Task<IEnumerable<string>> CreateWebApps(
+        private static async Task<IEnumerable<CreatedResource>> CreateWebApps(
             DurableOrchestrationContextBase context,
             GetRegionAndCountryCodeOutput regionAndCountry,
             IDictionary<string, Environment> resourceGroupsAndEvEnvironments,
@@ -123,20 +130,10 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
 
             await Task.WhenAll(tasks);
 
-            return tasks.Select(task => task.Result.AppName).ToList();
+            return tasks.Select(task => task.Result.CreatedResource).ToList();
         }
 
-        private static AddUserInput CreateAddUserInput(
-            OnboardEmployeeInput input,
-            GetRegionAndCountryCodeOutput regionAndCountry)
-        {
-            return new AddUserInput
-            {
-                CountryIsoCode = regionAndCountry.CountryIsoCode,
-                UserName = input.UserName
-            };
-        }
-
+        
         private static GetRegionAndCountryCodeInput CreateRegionAndCountryCodeInput(string userLocation)
         {
             return new GetRegionAndCountryCodeInput

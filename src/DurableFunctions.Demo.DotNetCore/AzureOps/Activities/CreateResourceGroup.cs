@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -18,13 +19,18 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
 
             try
             {
-                var resourceGroupToCreate = await AzureManagement.Instance.Authenticated.ResourceGroups
+                var resourceGroup = await AzureManagement.Instance.Authenticated.ResourceGroups
                     .Define(input.ResourceGroupName)
                     .WithRegion(input.Region)
                     .WithTags(input.Tags)
                     .CreateAsync();
 
-                return new CreateResourceGroupOutput { ResourceGroupId = resourceGroupToCreate.Inner.Id };
+                return new CreateResourceGroupOutput { CreatedResource = new CreatedResource
+                {
+                    Id = resourceGroup.Id,
+                    Name = resourceGroup.Name,
+                    Region = resourceGroup.Region.Name
+                }};
             }
             catch (Exception e)
             {

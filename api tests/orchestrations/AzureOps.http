@@ -1,24 +1,17 @@
-POST http://localhost:7071/api/orchestration/GetResourceInfo
-content-type: application/json
-
-"AzureFunctions-WestEurope"
-
-###
-
 POST http://localhost:7071/api/orchestration/OnboardEmployee
 content-type: application/json
 
 {
-    "UserName" : "mduiker",
+    "UserName" : "mduiker@xpirit.com",
     "UserThreeLetterCode" : "msd",
     "Role" : "developer",
     "Location" : "Amsterdam",
-    "Environments" : ["DEV", "TST"]
+    "Environments" : ["dev", "tst"]
 }
 
 ###
-
-GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/0bad9f9bbfd3456a9870e91ef90f949d
+@instanceId = f43d892713df4ecda3bcf42358ea165a
+GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{instanceId}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
-    &code=LgTh5uSlnQknatAV7UQBowSGtysSWrAae6xTs3gQfac8e7dRWMgZwg==
+    &code=YeBl1OpUL75JSsPRrhttClY18FnR5oOeMa3pNAGLMEn/EKPiszVJyQ==
