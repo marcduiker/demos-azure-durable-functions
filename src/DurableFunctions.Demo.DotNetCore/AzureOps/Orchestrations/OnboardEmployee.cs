@@ -1,9 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DurableFunctions.Demo.DotNetCore.AzureOps.Activities;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateResourceGroup;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateResourceGroup.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateWebApp;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateWebApp.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetRegionAndCountryCode;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetRegionAndCountryCode.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetResourceGroupName;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetResourceGroupName.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
-using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.SendSlackNotification;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.ValidateOrchestrationInput;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -19,6 +28,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             )
         {
             var input = context.GetInput<OnboardEmployeeInput>();
+            await context.CallActivityAsync(nameof(ValidateOrchestrationInput), input);
 
             var getCountryAndRegionInput = CreateRegionAndCountryCodeInput(input.Location);
             var getCountryAndRegionOutput = await context.CallActivityAsync<GetRegionAndCountryCodeOutput>(

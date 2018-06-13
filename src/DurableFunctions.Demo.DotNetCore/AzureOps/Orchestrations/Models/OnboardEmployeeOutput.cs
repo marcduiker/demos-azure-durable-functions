@@ -1,4 +1,4 @@
-﻿using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+﻿using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models
 {

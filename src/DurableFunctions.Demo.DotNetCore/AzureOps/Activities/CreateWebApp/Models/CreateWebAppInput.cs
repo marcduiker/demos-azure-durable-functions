@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateWebApp.Models
 {
     public sealed class CreateWebAppInput
     {

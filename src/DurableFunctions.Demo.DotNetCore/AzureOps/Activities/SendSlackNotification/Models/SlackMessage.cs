@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mail;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.SendSlackNotification.Models
 {
     public sealed class SlackMessage
     {

@@ -1,36 +1,41 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
-using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateWebApp.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
 using Microsoft.Azure.Management.AppService.Fluent;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
-using Environment = DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels.Environment;
+using Environment = DurableFunctions.Demo.DotNetCore.AzureOps.Models.Environment;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateWebApp
 {
     public static class CreateWebApp
     {
+        private static IWebApps _webApps;
+
+        public static IWebApps WebApps
+        {
+            get { return _webApps = _webApps ?? AzureManagement.Instance.Authenticated.WebApps; }
+            set => _webApps = value;
+        }
+
         [FunctionName(nameof(CreateWebApp))]
         public static async Task<CreateWebAppOutput> Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] CreateWebAppInput input,
             ILogger logger)
         {
-            var input = activityContext.GetInput<CreateWebAppInput>();
-
             try
             {
                 var appName = GetWebAppName(input.UserThreeLetterCode, input.Region, input.Environment);
 
-                var webApp = await AzureManagement.Instance.Authenticated.WebApps
+                var webApp = await WebApps
                     .Define(appName)
                     .WithRegion(input.Region)
                     .WithExistingResourceGroup(input.ResourceGroupName)
                     .WithNewWindowsPlan(PricingTier.BasicB1)
                     .WithTags(input.Tags)
                     .CreateAsync();
-               
 
                 return new CreateWebAppOutput
                 {

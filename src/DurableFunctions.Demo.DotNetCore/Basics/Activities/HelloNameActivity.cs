@@ -7,11 +7,9 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
     {
         [FunctionName(nameof(HelloNameActivity))]
         public static string Run(
-            [ActivityTrigger] DurableActivityContext context,
+            [ActivityTrigger] string name,
             ILogger logger)
         {
-            var name = context.GetInput<string>();
-
             logger.LogInformation($"Name: {name}");
 
             return $"Hello {name}!";

@@ -1,19 +1,16 @@
-using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetResourceGroupName.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetResourceGroupName
 {
     public static class GetResourceGroupName
     {
         [FunctionName(nameof(GetResourceGroupName))]
         public static GetResourceGroupNameOutput Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] GetResourceGroupNameInput input,
             ILogger logger)
         {
-            var input = activityContext.GetInput<GetResourceGroupNameInput>();
-            
             var result = new GetResourceGroupNameOutput
             {
                 ResourceGroup = $"megacorp-user-{input.UserThreeLetterCode}-{input.Environment}-rg".ToLower()

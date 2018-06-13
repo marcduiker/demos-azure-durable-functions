@@ -1,4 +1,4 @@
-﻿namespace DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels
+﻿namespace DurableFunctions.Demo.DotNetCore.AzureOps.Models
 {
     public class CreatedResource
     {

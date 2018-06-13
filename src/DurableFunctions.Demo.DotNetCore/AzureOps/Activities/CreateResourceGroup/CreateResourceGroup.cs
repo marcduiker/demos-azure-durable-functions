@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
-using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateResourceGroup.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateResourceGroup
 {
     public static class CreateResourceGroup
     {
         [FunctionName(nameof(CreateResourceGroup))]
         public static async Task<CreateResourceGroupOutput> Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] CreateResourceGroupInput input,
             ILogger logger)
         {
-            var input = activityContext.GetInput<CreateResourceGroupInput>();
-
             try
             {
                 var resourceGroup = await AzureManagement.Instance.Authenticated.ResourceGroups

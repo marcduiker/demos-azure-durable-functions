@@ -1,6 +1,6 @@
-﻿using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+﻿using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetResourceGroupName.Models
 {
     public sealed class GetResourceGroupNameInput
     {

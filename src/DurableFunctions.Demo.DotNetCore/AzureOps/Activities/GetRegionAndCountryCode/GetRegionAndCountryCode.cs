@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetRegionAndCountryCode.Models;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetRegionAndCountryCode
 {
     public static class GetRegionAndCountryCode
     {
         [FunctionName(nameof(GetRegionAndCountryCode))]
         public static GetRegionAndCountryCodeOutput Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] GetRegionAndCountryCodeInput input,
             ILogger logger)
         {
-            var input = activityContext.GetInput<GetRegionAndCountryCodeInput>();
             var result = new GetRegionAndCountryCodeOutput();
             if (LocationRegionDictionary.TryGetValue(input.UserLocation, out Tuple<CountryISOCode, Region> countryAndRegion))
             {
@@ -26,7 +25,6 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
                 // The default
                 result.CountryIsoCode = CountryISOCode.Netherlands.Value;
                 result.Region = Region.EuropeWest.Name;
-                logger.LogWarning($"Default values are used for user location: {input.UserLocation}.");
             }
 
             return result;

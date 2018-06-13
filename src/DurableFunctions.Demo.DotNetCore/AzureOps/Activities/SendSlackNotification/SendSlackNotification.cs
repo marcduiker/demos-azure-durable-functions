@@ -3,26 +3,31 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.SendSlackNotification.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Environment = System.Environment;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.SendSlackNotification
 {
     public static class SendSlackNotification
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
+        public static string EnvironmentVariableSlackWebHook = "SlackWebHook";
 
+        private static HttpClient _httpClient;
+        public static HttpClient HttpClient {
+            get { return _httpClient = _httpClient ?? new HttpClient(); }
+            set => _httpClient = value;
+        }
+        
         [FunctionName(nameof(SendSlackNotification))]
         public static async Task Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] SendSlackNotificationInput input,
             ILogger logger)
         {
-            var input = activityContext.GetInput<SendSlackNotificationInput>();
-
             try
             {
-                string slackUri = Environment.GetEnvironmentVariable("SlackWebHook");
+                string slackUri = Environment.GetEnvironmentVariable(EnvironmentVariableSlackWebHook);
                 var slackMessage = MapInputToSlackMessage(input);
 
                 await HttpClient.PostAsJsonAsync(slackUri, slackMessage);
@@ -39,6 +44,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities
         {
             var result = new SlackMessage
             {
+                Text = input.Message,
                 Attachments = input.CreatedResources.Select(createdResource => new Attachment
                 {
                     DateTime = DateTime.Now.Ticks,

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using DurableFunctions.Demo.DotNetCore.AzureOps.DomainModels;
+﻿using System.Collections.Generic;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 
 namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
 {

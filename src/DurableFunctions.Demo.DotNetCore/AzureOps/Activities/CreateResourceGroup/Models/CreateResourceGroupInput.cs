@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models
+namespace DurableFunctions.Demo.DotNetCore.AzureOps.Activities.CreateResourceGroup.Models
 {
     public sealed class CreateResourceGroupInput
     {
