@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations
 {
-    public static class GetPlanetResidents
+    public static class GetSwPlanetResidents
     {
-        [FunctionName(nameof(GetPlanetResidents))]
+        [FunctionName(nameof(GetSwPlanetResidents))]
         public static async Task<SwPlanetResidents> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)

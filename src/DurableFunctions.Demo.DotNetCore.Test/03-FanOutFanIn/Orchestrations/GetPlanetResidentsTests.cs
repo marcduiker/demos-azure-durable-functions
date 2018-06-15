@@ -23,7 +23,7 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
             var fakeOrchestrationContext = GetFakeOrchestrationContextReturnNullForPlanet();
 
             // Act
-            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = GetSwPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Should().BeNull();
@@ -37,7 +37,7 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
             var fakeOrchestrationContext = GetFakeOrchestrationContextWithPlanetAndCharacters();
 
             // Act
-            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = GetSwPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Should().NotBeEmpty();
