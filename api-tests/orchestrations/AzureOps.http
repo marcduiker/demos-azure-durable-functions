@@ -1,0 +1,17 @@
+POST http://localhost:7071/api/orchestration/OnboardEmployee
+content-type: application/json
+
+{
+    "UserName" : "mduiker@xpirit.com",
+    "UserThreeLetterCode" : "msd",
+    "Role" : "developer",
+    "Location" : "Amsterdam",
+    "Environments" : ["dev", "tst"]
+}
+
+###
+@instanceId = f43d892713df4ecda3bcf42358ea165a
+GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{instanceId}}
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code=YeBl1OpUL75JSsPRrhttClY18FnR5oOeMa3pNAGLMEn/EKPiszVJyQ==

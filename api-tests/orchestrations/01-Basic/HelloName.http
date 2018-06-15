@@ -1,0 +1,17 @@
+### Call the Hello World Orchestration Function
+POST http://localhost:7071/api/orchestration/HelloName/wait
+    ?timeout=10
+    &interval=2
+Content-Type: application/json
+
+"Experts Live 2018"
+
+### Check the status of the Hello World function.
+### Update this orchestrationInstanceId so it matches the ID of your
+### running orchestration instance.
+@orchestrationInstanceId = 498f22754ad849a7be9f559ba1ee2a38
+@storageCode = LgTh5uSlnQknatAV7UQBowSGtysSWrAae6xTs3gQfac8e7dRWMgZwg==
+GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code={{storageCode}}
