@@ -4,7 +4,7 @@ This repo contains a Function App which is part of a blog post series about Azur
 
 ## Update 2018-06-15
 
-I've restructured the solution and removed the functions which depended on 3rd party APIs which require additional accounts in order to use them (Meetup, Google Directions). This code is still in the repo but willbe movde to another one.
+I've restructured the solution (+ upgraded to .Net Core 2) and removed the functions which depended on 3rd party APIs which require additional accounts in order to use them (e.g. Meetup, Google Directions). This code is still in the repo but will be moved to another one soon.
 
 Now the chaining and fan-out/fan-in examples use the excellent (and free to use) [SWAPI](https://swapi.co/) which does't require any authentication and makes the demo easier to use for newcomers.
 
