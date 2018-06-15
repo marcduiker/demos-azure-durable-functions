@@ -42,6 +42,10 @@ The orchestration function requires a (partial) name of a Star Wars planet. This
 
 Run the solution and use the requests in [GetSwPlanetResidents.http](/api-tests/orchestrations/03-FanOutFanIn/GetSwPlanetResidents.http) to start the orchestration locally.
 
+## Unit tests
+
+Some unit tests are added to verify the fan-out/fan-in orchestration. These tests are using xUnit, Moq (for mocking the `DurableOrchestrationContextBase`) and AutoFixture for generating testdata.
+
 ## Using the VS Code REST Client
 
 I strongly recommend to the excellent [REST client](https://github.com/Huachao/vscode-restclient) for VS Code so you can use the http files located in the [`api-tests`](/api-tests) folder to start the orchestration functions.
