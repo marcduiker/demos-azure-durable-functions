@@ -12,6 +12,7 @@ using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.GetResourceGroupName.
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.SendSlackNotification;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.ValidateOrchestrationInput;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Helpers;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Models;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models;
 using Microsoft.Azure.WebJobs;
@@ -30,14 +31,16 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             var input = context.GetInput<OnboardEmployeeInput>();
             await context.CallActivityAsync(nameof(ValidateOrchestrationInput), input);
 
-            var getCountryAndRegionInput = CreateRegionAndCountryCodeInput(input.Location);
-            var getCountryAndRegionOutput = await context.CallActivityAsync<GetRegionAndCountryCodeOutput>(
-                nameof(GetRegionAndCountryCode),
-                getCountryAndRegionInput);
+            var getCountryAndRegionInput = Builder.CreateRegionAndCountryCodeInput(input.Location);
+            var getCountryAndRegionOutput = 
+                await context.CallActivityAsync<GetRegionAndCountryCodeOutput>(
+                    nameof(GetRegionAndCountryCode),
+                    getCountryAndRegionInput);
             
-            Dictionary<string, Environment> resourceGroupNamesAndEnvironments = await GetResourceGroupsAndEnvironments(
-                context,
-                input);
+            Dictionary<string, Environment> resourceGroupNamesAndEnvironments = 
+                await GetResourceGroupsAndEnvironments(
+                    context,
+                    input);
 
             var createdResources = new List<CreatedResource>();
 
@@ -77,7 +80,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             var tasks = new List<Task<GetResourceGroupNameOutput>>();
             foreach (var environment in input.Environments)
             {
-                var getResourceGroupNameInput = CreateGetResourceGroupNameInput(
+                var getResourceGroupNameInput = Builder.CreateGetResourceGroupNameInput(
                     environment,
                     input.UserThreeLetterCode);
 
@@ -102,7 +105,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             var tasks = new List<Task<CreateResourceGroupOutput>>();
             foreach (var resourceGroupAndEnvironment in resourceGroupsAndEnvironments)
             {
-                var createResourceGroupInput = CreateResourceGroupInput(
+                var createResourceGroupInput = Builder.CreateResourceGroupInput(
                     regionAndCountry,
                     resourceGroupAndEnvironment,
                     userName);
@@ -127,7 +130,7 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             var tasks = new List<Task<CreateWebAppOutput>>();
             foreach (var resourceGroupAndEnvironment in resourceGroupsAndEvEnvironments)
             {
-                var createWebAppInput = CreateWebAppInput(
+                var createWebAppInput = Builder.CreateWebAppInput(
                     regionAndCountry,
                     resourceGroupAndEnvironment,
                     userThreeLetterCode,
@@ -141,66 +144,6 @@ namespace DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations
             await Task.WhenAll(tasks);
 
             return tasks.Select(task => task.Result.CreatedResource).ToList();
-        }
-
-        
-        private static GetRegionAndCountryCodeInput CreateRegionAndCountryCodeInput(string userLocation)
-        {
-            return new GetRegionAndCountryCodeInput
-            {
-                UserLocation = userLocation
-            };
-        }
-
-        private static GetResourceGroupNameInput CreateGetResourceGroupNameInput(
-            Environment environment,
-            string userThreeLetterCode)
-        {
-            return new GetResourceGroupNameInput
-            {
-                Environment = environment,
-                UserThreeLetterCode = userThreeLetterCode
-            };
-        }
-
-        private static CreateResourceGroupInput CreateResourceGroupInput(
-            GetRegionAndCountryCodeOutput regionAndCountry,
-            KeyValuePair<string, Environment> resourceGroupAndEnvironment,
-            string userName
-            )
-        {
-            return new CreateResourceGroupInput
-            {
-                Region = regionAndCountry.Region,
-                ResourceGroupName = resourceGroupAndEnvironment.Key,
-                Tags = GetTags(userName, resourceGroupAndEnvironment.Value)
-            };
-        }
-
-        private static CreateWebAppInput CreateWebAppInput(
-            GetRegionAndCountryCodeOutput regionAndCountry,
-            KeyValuePair<string, Environment> resourceGroupAndEnvironment,
-            string userThreeLetterCode,
-            string userName
-            )
-        {
-            return new CreateWebAppInput
-            {
-                Region = regionAndCountry.Region,
-                Environment = resourceGroupAndEnvironment.Value,
-                ResourceGroupName = resourceGroupAndEnvironment.Key,
-                UserThreeLetterCode = userThreeLetterCode,
-                Tags = GetTags(userName, resourceGroupAndEnvironment.Value)
-            };
-        }
-
-        private static Dictionary<string, string> GetTags(string userName, Environment environment)
-        {
-            return new Dictionary<string, string>
-            {
-                { "user", userName},
-                { "environment", environment.ToString("G")}
-            };
-        }
+        }   
     }
 }

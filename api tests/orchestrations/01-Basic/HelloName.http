@@ -1,5 +1,7 @@
 ### Call the Hello World Orchestration Function
-POST http://localhost:7071/api/orchestration/HelloName
+POST http://localhost:7071/api/orchestration/HelloName/wait
+    ?timeout=10
+    &interval=2
 Content-Type: application/json
 
 "Experts Live 2018"

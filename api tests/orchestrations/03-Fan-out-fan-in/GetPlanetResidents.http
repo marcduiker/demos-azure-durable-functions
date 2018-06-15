@@ -1,0 +1,18 @@
+### Synchronous call the Hello World Orchestration Function
+POST http://localhost:7071/api/orchestration/GetPlanetResidents/wait
+    ?timeout=10
+    &interval=2
+Content-Type: application/json
+
+"tat"
+
+
+### Check the status of the orchestration function.
+### Update the orchestrationInstanceId and storageCode 
+### so it matches the ID of your running orchestration instance.
+@orchestrationInstanceId = 194ac676487e4b11aac4762ef8bf82c5
+@storageCode = YeBl1OpUL75JSsPRrhttClY18FnR5oOeMa3pNAGLMEn/EKPiszVJyQ==
+GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
+    ?taskHub=DurableFunctionsHub
+    &connection=Storage
+    &code={{storageCode}}

@@ -1,4 +1,4 @@
-### AsynchCall the Hello World Orchestration Function
+### Async call the Hello World Orchestration Function
 POST http://localhost:7071/api/orchestration/HelloWorld
 
 ### Check the status of the Hello World function.
@@ -12,7 +12,7 @@ GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orch
     &code={{storageCode}}
 
 
-### Synchronous Call the Hello World Orchestration Function
+### Synchronous call the Hello World Orchestration Function
 POST http://localhost:7071/api/orchestration/HelloWorld/wait
     ?timeout=10
     &interval=2

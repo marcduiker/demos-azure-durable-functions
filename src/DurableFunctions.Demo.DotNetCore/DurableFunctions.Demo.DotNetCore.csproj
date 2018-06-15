@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AzureOps\**" />
+    <Compile Remove="EternalOchestrationsAndEvents\**" />
+    <Compile Remove="MeetupTravelInfo\**" />
+    <EmbeddedResource Remove="AzureOps\**" />
+    <EmbeddedResource Remove="EternalOchestrationsAndEvents\**" />
+    <EmbeddedResource Remove="MeetupTravelInfo\**" />
+    <None Remove="AzureOps\**" />
+    <None Remove="EternalOchestrationsAndEvents\**" />
+    <None Remove="MeetupTravelInfo\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="7.6.100" />
     <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.10.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="1.4.1" />

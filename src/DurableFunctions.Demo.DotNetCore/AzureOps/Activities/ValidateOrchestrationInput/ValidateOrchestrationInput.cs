@@ -1,6 +1,6 @@
 using System.Linq;
+using DurableFunctions.Demo.DotNetCore.AzureOps.Activities.ValidateOrchestrationInput.Validators;
 using DurableFunctions.Demo.DotNetCore.AzureOps.Orchestrations.Models;
-using DurableFunctions.Demo.DotNetCore.AzureOps.Validators;
 using DurableTask.Core.Exceptions;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
