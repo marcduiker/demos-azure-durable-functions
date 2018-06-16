@@ -23,7 +23,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations
             var characterResult = await context.CallActivityAsync<SwCharacter>(
                 nameof(SearchCharacter),
                 name);
-
+            
             if (characterResult != null)
             {
                 result.Name = characterResult.Name;
