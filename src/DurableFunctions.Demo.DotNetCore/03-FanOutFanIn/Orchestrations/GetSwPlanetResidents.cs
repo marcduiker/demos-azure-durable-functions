@@ -16,13 +16,13 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
-            var name = context.GetInput<string>();
+            var planetName = context.GetInput<string>();
 
             var result = new SwPlanetResidents();
 
             var planetResult = await context.CallActivityAsync<SwPlanet>(
                 nameof(SearchPlanet),
-                name);
+                planetName);
 
             if (planetResult != null)
             {

@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models;
+using DurableTask.Core.Exceptions;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -12,7 +13,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities
     
     public static class SearchCharacter
     {
-        const string SwApiPeople = "https://swapi.co/api/people/";
+        private const string SwApiPeople = "https://swapi.co/api/people/";
         private static readonly HttpClient HttpClient = new HttpClient();
 
         [FunctionName(nameof(SearchCharacter))]
@@ -25,7 +26,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities
             var result = await HttpClient.GetAsync(uri);
             if (!result.IsSuccessStatusCode)
             {
-                return null;
+                throw new TaskFailedException($"SwApi returned status code {result.StatusCode}");
             }
 
             var contentResult = result.Content.ReadAsStringAsync().Result;

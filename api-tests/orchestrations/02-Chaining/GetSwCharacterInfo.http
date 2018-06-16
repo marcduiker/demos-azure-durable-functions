@@ -1,7 +1,7 @@
 ### Synchronous call the Hello World Orchestration Function
 POST http://localhost:7071/api/orchestration/GetSwCharacterInfo/wait
-    ?timeout=10
-    &interval=2
+    ?timeout=12
+    &interval=3
 Content-Type: application/json
 
 "luke"
@@ -10,7 +10,7 @@ Content-Type: application/json
 ### Check the status of the orchestration function.
 ### Update the orchestrationInstanceId and storageCode 
 ### so it matches the ID of your running orchestration instance.
-@orchestrationInstanceId = ea081ff6eaea479b8c368a0e7ffc1813
+@orchestrationInstanceId = 4540c39806164229a3b87d327aa2f6c8
 @storageCode = YeBl1OpUL75JSsPRrhttClY18FnR5oOeMa3pNAGLMEn/EKPiszVJyQ==
 GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub

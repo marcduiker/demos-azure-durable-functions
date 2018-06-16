@@ -4,7 +4,7 @@ POST http://localhost:7071/api/orchestration/HelloWorld
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 76ec4e2b1d9949528472eb1b6b92b4bd
+@orchestrationInstanceId = 4fbe2cd623a84e919e36fe8b5cdee0ee
 @storageCode = YeBl1OpUL75JSsPRrhttClY18FnR5oOeMa3pNAGLMEn/EKPiszVJyQ==
 GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
@@ -14,5 +14,5 @@ GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orch
 
 ### Synchronous call the Hello World Orchestration Function
 POST http://localhost:7071/api/orchestration/HelloWorld/wait
-    ?timeout=10
-    &interval=2
+    ?timeout=12
+    &interval=3

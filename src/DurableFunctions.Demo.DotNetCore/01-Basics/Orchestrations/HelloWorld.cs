@@ -3,6 +3,7 @@ using DurableFunctions.Demo.DotNetCore.Basics.Activities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
+// ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
 {
     public static class HelloWorld
