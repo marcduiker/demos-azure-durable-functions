@@ -28,19 +28,19 @@ Run the solution and use the requests in [HelloName.http](/api-tests/orchestrati
 
 ### 02-Chaining
 
-Shows how an orchestration function ([`GetSwCharacterInfo`](/src/DurableFunctions.Demo.DotNetCore/02-Chaining/Orchestrations/GetSwCharacterInfo.cs)) calls two activity functions in a chain ([`SearchCharacter`](src/DurableFunctions.Demo.DotNetCore/02-Chaining/Activities/SearchCharacter.cs) -> [`GetPlanet`](/src/DurableFunctions.Demo.DotNetCore/02-Chaining/Activities/GetPlanet.cs)).
+Shows how an orchestration function ([`GetCharacterInfo`](/src/DurableFunctions.Demo.DotNetCore/02-Chaining/Orchestrations/GetCharacterInfo.cs)) calls two activity functions in a chain ([`SearchCharacter`](src/DurableFunctions.Demo.DotNetCore/02-Chaining/Activities/SearchCharacter.cs) -> [`GetPlanet`](/src/DurableFunctions.Demo.DotNetCore/02-Chaining/Activities/GetPlanet.cs)).
 
 The orchestration function requires a (partial) name of a Star Wars character. This character is searched in the `SearchCharacter` activity which uses the `swapi.co` API. When a character is returned the `GetPlanet` activity is called (also uses `swapi.co` again) to return the name of the home planet of the character. The full name of the character and the planet are returned from the orchestration.
 
-Run the solution and use the requests in [GetSwCharacterInfo.http](/api-tests/orchestrations/02-Chaining/GetSwCharacterInfo.http) to start the orchestration  locally.
+Run the solution and use the requests in [GetCharacterInfo.http](/api-tests/orchestrations/02-Chaining/GetCharacterInfo.http) to start the orchestration  locally.
 
 ### 03-FanOutFanIn
 
-Shows how an orchestration function ([`GetSwPlanetResidents`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Orchestrations/GetSwPlanetResidents.cs)) calls activity functions using the fan-out/fan-in pattern ([`SearchPlanet`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Activities/SearchPlanet.cs) -> n * [`GetCharacter`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Activities/GetCharacter.cs)).
+Shows how an orchestration function ([`GetPlanetResidents`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Orchestrations/GetPlanetResidents.cs)) calls activity functions using the fan-out/fan-in pattern ([`SearchPlanet`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Activities/SearchPlanet.cs) -> n * [`GetCharacter`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Activities/GetCharacter.cs)).
 
 The orchestration function requires a (partial) name of a Star Wars planet. This planet is searched in the `SearchPlanet` activity which uses the `swapi.co` API. When a planet is returned the `GetCharacter` activity is called for each of the residents found in the `SearchPlanet` result. The full name of the planet and the names of the planet residents are returned from the orchestration.
 
-Run the solution and use the requests in [GetSwPlanetResidents.http](/api-tests/orchestrations/03-FanOutFanIn/GetSwPlanetResidents.http) to start the orchestration locally.
+Run the solution and use the requests in [GetPlanetResidents.http](/api-tests/orchestrations/03-FanOutFanIn/GetPlanetResidents.http) to start the orchestration locally.
 
 ## Unit tests
 
