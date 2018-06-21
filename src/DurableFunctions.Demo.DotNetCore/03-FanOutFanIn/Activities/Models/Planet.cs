@@ -3,7 +3,7 @@
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations.Models
 {
-    public sealed class SwPlanet
+    public sealed class Planet
     {
         public string Name { get; set; }
 

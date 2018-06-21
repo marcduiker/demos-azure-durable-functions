@@ -9,18 +9,18 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations
 {
-    public static class GetSwCharacterInfo
+    public static class GetCharacterInfo
     {
-        [FunctionName(nameof(GetSwCharacterInfo))]
-        public static async Task<SwCharacterInfo> Run(
+        [FunctionName(nameof(GetCharacterInfo))]
+        public static async Task<CharacterInfo> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
             var name = context.GetInput<string>();
 
-            var result = new SwCharacterInfo();
+            var result = new CharacterInfo();
 
-            var characterResult = await context.CallActivityAsync<SwCharacter>(
+            var characterResult = await context.CallActivityAsync<Character>(
                 nameof(SearchCharacter),
                 name);
             

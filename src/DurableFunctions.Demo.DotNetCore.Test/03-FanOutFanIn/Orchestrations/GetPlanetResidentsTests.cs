@@ -12,7 +12,7 @@ using Xunit;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
 {
-    public class GetSwPlanetResidentsTests
+    public class GetPlanetResidentsTests
     {
         private readonly Fixture _fixture = new Fixture();
 
@@ -23,7 +23,7 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
             var fakeOrchestrationContext = GetFakeOrchestrationContextReturnNullForPlanet();
 
             // Act
-            var result = GetSwPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Should().BeNull();
@@ -37,7 +37,7 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
             var fakeOrchestrationContext = GetFakeOrchestrationContextWithPlanetAndCharacters();
 
             // Act
-            var result = GetSwPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Should().NotBeEmpty();
@@ -48,10 +48,10 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
         {
             var mock = new Mock<DurableOrchestrationContextBase>();
             mock.Setup(
-                context => context.CallActivityAsync<SwPlanet>(
+                context => context.CallActivityAsync<Planet>(
                     nameof(SearchPlanet), 
                     It.IsAny<string>()))
-                .Returns(Task.FromResult((SwPlanet)null));
+                .Returns(Task.FromResult((Planet)null));
 
             return mock.Object;
         }
@@ -60,10 +60,10 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
         {
             var mock = new Mock<DurableOrchestrationContextBase>();
             mock.Setup(
-                context => context.CallActivityAsync<SwPlanet>(
+                context => context.CallActivityAsync<Planet>(
                     nameof(SearchPlanet), 
                     It.IsAny<string>()))
-                .Returns(Task.FromResult(_fixture.Create<SwPlanet>()));
+                .Returns(Task.FromResult(_fixture.Create<Planet>()));
 
             mock.Setup(
                 context => context.CallActivityAsync<string>(

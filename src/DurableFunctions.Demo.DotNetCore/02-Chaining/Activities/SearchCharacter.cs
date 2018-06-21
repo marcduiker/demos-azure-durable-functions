@@ -17,7 +17,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities
         private static readonly HttpClient HttpClient = new HttpClient();
 
         [FunctionName(nameof(SearchCharacter))]
-        public static async Task<SwCharacter> Run(
+        public static async Task<Character> Run(
             [ActivityTrigger] string name,
             ILogger logger)
         {
@@ -30,7 +30,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities
             }
 
             var contentResult = result.Content.ReadAsStringAsync().Result;
-            var character = JToken.Parse(contentResult).SelectToken("results").ToObject<SwCharacter[]>();
+            var character = JToken.Parse(contentResult).SelectToken("results").ToObject<Character[]>();
 
             return character.FirstOrDefault();
         }

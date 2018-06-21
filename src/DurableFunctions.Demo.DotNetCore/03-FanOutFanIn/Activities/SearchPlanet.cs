@@ -16,7 +16,7 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Activities
         private static readonly HttpClient HttpClient = new HttpClient();
 
         [FunctionName(nameof(SearchPlanet))]
-        public static async Task<SwPlanet> Run(
+        public static async Task<Planet> Run(
             [ActivityTrigger] string name,
             ILogger logger)
         {
@@ -29,7 +29,7 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Activities
             }
 
             var contentResult = result.Content.ReadAsStringAsync().Result;
-            var character = JToken.Parse(contentResult).SelectToken("results").ToObject<SwPlanet[]>();
+            var character = JToken.Parse(contentResult).SelectToken("results").ToObject<Planet[]>();
 
             return character.FirstOrDefault();
         }
