@@ -3,7 +3,7 @@
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models
 {
-    public sealed class SwCharacter
+    public sealed class Character
     {
         public string Name { get; set; }
 

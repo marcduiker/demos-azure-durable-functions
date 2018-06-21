@@ -16,7 +16,9 @@ namespace DurableFunctions.Demo.DotNetCore
             ILogger log)
         {
             dynamic functionData = await req.Content.ReadAsAsync<object>();
-            string instanceId = await orchestrationClient.StartNewAsync(functionName, functionData);
+            string instanceId = await orchestrationClient.StartNewAsync(
+                functionName, 
+                functionData);
 
             log.LogInformation($"Started orchestration with ID = '{instanceId}'...");
 
