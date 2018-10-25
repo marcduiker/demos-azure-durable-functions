@@ -14,9 +14,7 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
         {
             var name = context.GetInput<string>();
 
-            var result = await context.CallActivityAsync<string>(
-                nameof(HelloNameActivity),
-                name);
+            var result = await context.CallActivityAsync<string>(nameof(HelloNameActivity), name);
 
             return result;
         }

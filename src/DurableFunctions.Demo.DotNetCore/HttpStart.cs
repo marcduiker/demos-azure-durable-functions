@@ -1,7 +1,10 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore
@@ -15,6 +18,15 @@ namespace DurableFunctions.Demo.DotNetCore
             string functionName,
             ILogger log)
         {
+
+            var webjobsStorageConnection = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+                
+            if (webjobsStorageConnection.Contains("UseDevelopmentStorage=true"))
+            {
+                log.LogInformation("Is local!");
+            }
+        
+
             dynamic functionData = await req.Content.ReadAsAsync<object>();
             string instanceId = await orchestrationClient.StartNewAsync(
                 functionName, 
