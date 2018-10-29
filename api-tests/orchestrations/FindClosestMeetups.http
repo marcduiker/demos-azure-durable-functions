@@ -12,7 +12,7 @@ content-type: application/json
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
 @instanceid = 2d2f864b5c6e44b58165a072cfd0c9c6
-GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{instanceid}}
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceid}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
     &code=3F2oUSLBZALkMA7QxHvaaokuq5Ph/W487ZqydJY1mTaFBni82zlfhQ==

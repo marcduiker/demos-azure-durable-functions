@@ -12,7 +12,7 @@ content-type: application/json
 ### running orchestration instance.
 @instanceid = ab3d06c719a1407bb386fd49f70e0bcf
 @code = 07hP1FGqaUDMJSQK5S8WaViVCA//XyU5gwgSnGvNc770aaUuFwT9hA== 
-GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{instanceid}}
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceid}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
     &code={{code}}
