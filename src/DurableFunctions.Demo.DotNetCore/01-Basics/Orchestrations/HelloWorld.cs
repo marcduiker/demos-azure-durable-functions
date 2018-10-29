@@ -10,7 +10,7 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
     {
         [FunctionName(nameof(HelloWorld))]
         public static async Task<string> Run(
-            [OrchestrationTrigger]DurableOrchestrationContext context,
+            [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
             var result = await context.CallActivityAsync<string>(

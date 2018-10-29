@@ -12,7 +12,7 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Activities
     
     public static class SearchPlanet
     {
-        const string SwApiPlanet = "https://swapi.co/api/planets/";
+        private const string SwApiPlanet = "https://swapi.co/api/planets/";
         private static readonly HttpClient HttpClient = new HttpClient();
 
         [FunctionName(nameof(SearchPlanet))]
