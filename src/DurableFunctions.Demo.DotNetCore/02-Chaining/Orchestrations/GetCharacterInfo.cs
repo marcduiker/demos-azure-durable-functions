@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.Chaining.Activities;
 using DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models;

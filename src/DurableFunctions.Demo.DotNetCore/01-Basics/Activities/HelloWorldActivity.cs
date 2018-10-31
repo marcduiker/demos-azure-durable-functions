@@ -11,7 +11,11 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
             [ActivityTrigger] DurableActivityContext activityContext,
             ILogger logger)
         {
-            return "Hello World";
+            logger.Log(
+                LogLevel.Information, 
+                $"Triggered {nameof(HelloWorldActivity)} - instance {activityContext.InstanceId}");
+
+            return "Hello World!";
         }
     }
 }

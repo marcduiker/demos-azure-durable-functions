@@ -11,7 +11,7 @@ namespace DurableFunctions.Demo.DotNetCore
         [FunctionName(nameof(HttpStart))]
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "orchestration/{functionName}")]HttpRequestMessage req, 
-            [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
+            [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             string functionName,
             ILogger log)
         {

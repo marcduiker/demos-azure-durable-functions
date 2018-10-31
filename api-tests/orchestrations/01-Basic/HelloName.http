@@ -4,14 +4,14 @@ POST http://localhost:7071/api/orchestration/HelloName/wait
     &interval=3
 Content-Type: application/json
 
-"Experts Live 2018"
+"from Durable Functions"
 
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 03e05af7a6234adf9d4b242eb07300b3
-@storageCode = tWKoQa6wS0uNzGXTTTtTpVjhTvMSECTHbJpdD9fdlDlvrvwefQf8Ag==
-GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{orchestrationInstanceId}}
+@orchestrationInstanceId = bf404c89f1d7466493f67822a9be7283
+@storageCode = yCGdcZ4vAWTSiWHsis5juYX6azfaPUXSbwgk8BnCd473QKi/v9zYsg==
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
     &code={{storageCode}}

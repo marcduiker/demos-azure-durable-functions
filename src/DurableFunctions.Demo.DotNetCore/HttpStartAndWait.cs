@@ -16,11 +16,10 @@ namespace DurableFunctions.Demo.DotNetCore
         [FunctionName(nameof(HttpStartAndWait))]
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "orchestration/{functionName}/wait")]HttpRequestMessage request, 
-            [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
+            [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             string functionName,
             ILogger log)
-        {
-            
+        { 
             dynamic functionData = await request.Content.ReadAsAsync<object>();
             string instanceId = await orchestrationClient.StartNewAsync(functionName, functionData);
 
