@@ -1,10 +1,7 @@
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.DotNet.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore
