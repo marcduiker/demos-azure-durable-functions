@@ -4,8 +4,8 @@ POST http://localhost:7071/api/orchestration/HelloWorld
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 4126ad1651114f478d0b6e871bc94b6d
-@storageCode = yCGdcZ4vAWTSiWHsis5juYX6azfaPUXSbwgk8BnCd473QKi/v9zYsg==
+@orchestrationInstanceId = 71098a6a1c9c403fb1306ad226fa659c
+@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
