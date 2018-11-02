@@ -1,4 +1,10 @@
-### Synchronous call the Hello World Orchestration Function
+### ASynchronous call the GetCharacterInfo Orchestration Function
+POST http://localhost:7071/api/orchestration/GetCharacterInfo
+Content-Type: application/json
+
+"luke"
+
+### Synchronous call the GetCharacterInfo Orchestration Function
 POST http://localhost:7071/api/orchestration/GetCharacterInfo/wait
     ?timeout=12
     &interval=3
@@ -10,8 +16,8 @@ Content-Type: application/json
 ### Check the status of the orchestration function.
 ### Update the orchestrationInstanceId and storageCode 
 ### so it matches the ID of your running orchestration instance.
-@orchestrationInstanceId = b35f52a6388a4870b70380a8091d4b76
-@storageCode = yCGdcZ4vAWTSiWHsis5juYX6azfaPUXSbwgk8BnCd473QKi/v9zYsg==
+@orchestrationInstanceId = 0f98445bfe274b739b82791a6a8a983b
+@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
     &connection=Storage
