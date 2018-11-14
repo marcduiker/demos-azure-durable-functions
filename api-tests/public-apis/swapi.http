@@ -1,0 +1,14 @@
+### Search for person 'luke'
+@personName=luke
+GET https://swapi.co/api/people?search={{personName}}
+
+### Get planet 1
+GET https://swapi.co/api/planets/1/
+
+### Search for planet 'tat'
+@planetName=tat
+GET https://swapi.co/api/planets?search={{planetName}}
+
+### Get people 1
+
+GET https://swapi.co/api/people/1/
