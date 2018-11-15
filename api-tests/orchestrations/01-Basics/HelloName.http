@@ -2,7 +2,7 @@
 POST http://localhost:7071/api/orchestration/HelloName
 Content-Type: application/json
 
-"WAZUG"
+"Serverless Computing London"
 
 
 ### Synchronous call the Hello Name Orchestration Function
@@ -11,12 +11,12 @@ POST http://localhost:7071/api/orchestration/HelloName/wait
     &interval=3
 Content-Type: application/json
 
-"WAZUG"
+"Serverless Computing London"
 
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = a2c66a41dbd74e6aab846b6e40465602
+@orchestrationInstanceId = 98ce0997452c4671ab99cd8c593f535b
 @storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
