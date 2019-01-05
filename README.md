@@ -14,13 +14,22 @@ The current version of this Function App depends on the free (and fun) external 
 
 The Function App solution consists of the following demos (found in seperate solution folders) which can be executed independently.
 
+### 00-Starters
+
+Contains the following functions to start orchestrations:
+
+- [`HttpStart`](/src/DurableFunctions.Demo.DotNetCore/00-Starters/HttpStart.cs)
+- [`HttpStartAndWait`](/src/DurableFunctions.Demo.DotNetCore/00-Starters/HttpStartAndWait.cs)
+
+Run the solution and use the requests in [Start.http](/api-tests/orchestrations/00-Starters/Start.http) and [StartAndWait.http](/api-tests/orchestrations/00-Starters/StartAndWait.http) to learn how orchestrations can be started over HTTP and discover how the status or result is returned.
+
 ### 01-Basics
 
 #### HelloWorld
 
 Shows how an orchestration function ([`HelloWorld`](/src/DurableFunctions.Demo.DotNetCore/01-Basics/Orchestrations/HelloWorld.cs)) calls an activity function ([`HelloWorldActivity`](/src/DurableFunctions.Demo.DotNetCore/01-Basics/Activities/HelloWorldActivity.cs)).
 
-Run the solution and use the requests in [HelloWorld.http](/api-tests/orchestrations/01-Basics/HelloWorld.http) to start the orchestration  locally.
+Run the solution and use the requests in [HelloWorld.http](/api-tests/orchestrations/01-Basics/HelloWorld.http) to start the orchestration locally.
 
 #### HelloName
 
