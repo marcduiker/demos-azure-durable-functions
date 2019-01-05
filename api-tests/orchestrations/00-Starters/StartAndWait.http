@@ -1,4 +1,4 @@
-### Synchronous call the Hello Name Orchestration Function
+### Synchronous call to the Hello Name Orchestration Function.
 POST http://localhost:7071/api/startandwait/HelloName
     ?timeout=12
     &interval=2
@@ -7,7 +7,7 @@ Content-Type: application/json
 "I ❤ Serverless (timeout and interval)"
 
 
-### Synchronous call the Hello Name Orchestration Function
+### Synchronous call to the Hello Name Orchestration Function.
 POST http://localhost:7071/api/startandwait/HelloName
     ?timeout=8
 Content-Type: application/json
@@ -15,16 +15,16 @@ Content-Type: application/json
 "I ❤ Serverless (only timeout)"
 
 
-### Synchronous call the Hello Name Orchestration Function
+### Synchronous call to the Hello Name Orchestration Function.
 POST http://localhost:7071/api/startandwait/HelloName
 Content-Type: application/json
 
 "I ❤ Serverless (using defaults)"
 
 
-### Synchronous call the LongRunning Orchestration Function
-### Execution time will be longer than timeout so the 
-### StatusResponseMessage is returned instead of the result.
+### Asynchronous call to the LongRunning Orchestration Function.
+### The Execution time will be longer than timeout so the 
+### StatusResponseMessage is returned instead of the orchestration result.
 POST http://localhost:7071/api/startandwait/LongRunning
     ?timeout=12
     &interval=2
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 20
 
-### Check the status of the LongRunning orchestration function.
+### Checks the status of an orchestration function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
 @orchestrationInstanceId = d8b1daa9c048474fb89c1139c981f12d
