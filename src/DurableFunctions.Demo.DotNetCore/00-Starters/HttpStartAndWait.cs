@@ -18,18 +18,20 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
         /// </summary>
         /// <param name="request">The HttpRequestMessage which can contain input data for the orchestration.</param>
         /// <param name="orchestrationClient">An instance of the DurableOrchestrationClient used to start a new orchestration.</param>
-        /// <param name="functionName">The name of the orchestration function to start.</param>
+        /// <param name="orchestrationName">The name of the orchestration function to start.</param>
         /// <param name="log">ILogger implementation.</param>
         /// <returns>An HttpResponseMessage containing the id and status of the orchestration instance.</returns>
         [FunctionName(nameof(HttpStartAndWait))]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "startandwait/{functionName}")]HttpRequestMessage request, 
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "startandwait/{orchestrationName}")]HttpRequestMessage request, 
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
-            string functionName,
+            string orchestrationName,
             ILogger log)
         { 
-            dynamic functionData = await request.Content.ReadAsAsync<object>();
-            string instanceId = await orchestrationClient.StartNewAsync(functionName, functionData);
+            dynamic orchestrationInput = await request.Content.ReadAsAsync<object>();
+            string instanceId = await orchestrationClient.StartNewAsync(
+                orchestrationName, 
+                orchestrationInput);
 
             log.LogInformation($"Started orchestration with ID = '{instanceId}'...");
 
