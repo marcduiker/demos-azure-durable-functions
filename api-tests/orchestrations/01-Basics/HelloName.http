@@ -1,18 +1,18 @@
-### Asynchronous call the Hello Name Orchestration Function
+### Start the HelloName orchestration function.
 POST http://localhost:7071/api/start/HelloName
 Content-Type: application/json
 
-"Serverless Computing London"
+"I ❤ Serverless"
 
-### Synchronous call the Hello Name Orchestration Function
+### Start the Hello Name orchestration function and wait for its completion.
 POST http://localhost:7071/api/startandwait/HelloName
     ?timeout=9
     &interval=3
 Content-Type: application/json
 
-"Serverless Computing London"
+"I ❤ Serverless"
 
-### Check the status of the Hello World function.
+### Check the status of the HelloName orchestration function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
 @orchestrationInstanceId = 98ce0997452c4671ab99cd8c593f535b

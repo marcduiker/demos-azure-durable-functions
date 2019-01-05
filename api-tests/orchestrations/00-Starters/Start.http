@@ -1,11 +1,13 @@
-### Asynchronous call to the Hello Name Orchestration Function.
+### Start the HelloName orchestration function.
+### Returns a status message.
 POST http://localhost:7071/api/start/HelloName
 Content-Type: application/json
 
 "I ❤ Serverless"
 
 
-### Asynchronous call to the Hello Name Orchestration Function with an instance id.
+### Start the HelloName orchestration function with an orchestration instance id.
+### Returns a status message.
 POST http://localhost:7071/api/start/HelloName/{{$guid}}
 Content-Type: application/json
 

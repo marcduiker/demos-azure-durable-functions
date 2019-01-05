@@ -1,5 +1,6 @@
-### Async call the Hello World Orchestration Function
+### Start the HelloWorld orchestration function.
 POST http://localhost:7071/api/start/HelloWorld
+
 
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
@@ -12,7 +13,7 @@ GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestration
     &code={{storageCode}}
 
 
-### Synchronous call the Hello World Orchestration Function
+### Start the HelloWorld orchestration function and wait until its completion.
 POST http://localhost:7071/api/startandwait/HelloWorld
-    ?timeout=9
+    ?timeout=12
     &interval=3
