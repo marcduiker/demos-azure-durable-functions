@@ -18,18 +18,20 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
         /// </summary>
         /// <param name="request">The HttpRequestMessage which can contain input data for the orchestration.</param>
         /// <param name="orchestrationClient">An instance of the DurableOrchestrationClient used to start a new orchestration.</param>
-        /// <param name="functionName">The name of the orchestration function to start.</param>
+        /// <param name="orchestrationName">The name of the orchestration function to start.</param>
         /// <param name="log">ILogger implementation.</param>
         /// <returns>An HttpResponseMessage containing the id and status of the orchestration instance.</returns>
         [FunctionName(nameof(HttpStartAndWait))]
         public static async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "startandwait/{functionName}")]HttpRequestMessage request, 
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "startandwait/{orchestrationName}")]HttpRequestMessage request, 
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
-            string functionName,
+            string orchestrationName,
             ILogger log)
         { 
-            dynamic functionData = await request.Content.ReadAsAsync<object>();
-            string instanceId = await orchestrationClient.StartNewAsync(functionName, functionData);
+            dynamic orchestrationInput = await request.Content.ReadAsAsync<object>();
+            string instanceId = await orchestrationClient.StartNewAsync(
+                orchestrationName, 
+                orchestrationInput);
 
             log.LogInformation($"Started orchestration with ID = '{instanceId}'...");
 
@@ -38,14 +40,12 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
 
             HttpResponseMessage responseMessage = null;
 
-            if (timeoutTime != TimeSpan.Zero && retryIntervalTime != TimeSpan.Zero)
+            if (timeoutTime == TimeSpan.Zero && retryIntervalTime == TimeSpan.Zero)
             {
-                // Wait until the specified timeoutTime and check every retryIntervalTime:
+                // Wait using the default values in the Durable Functions extension (10 sec timeout, 1 sec interval):
                 responseMessage = await orchestrationClient.WaitForCompletionOrCreateCheckStatusResponseAsync(
                     request,
-                    instanceId,
-                    timeoutTime,
-                    retryIntervalTime);
+                    instanceId);
             }
 
             if (timeoutTime != TimeSpan.Zero && retryIntervalTime == TimeSpan.Zero)
@@ -57,12 +57,14 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
                     timeoutTime);
             }
 
-            if (timeoutTime == TimeSpan.Zero && retryIntervalTime == TimeSpan.Zero)
+            if (timeoutTime != TimeSpan.Zero && retryIntervalTime != TimeSpan.Zero)
             {
-                // Wait using the default values in the Durable Functions extension (10 sec timeout, 1 sec interval):
+                // Wait until the specified timeoutTime and check every retryIntervalTime:
                 responseMessage = await orchestrationClient.WaitForCompletionOrCreateCheckStatusResponseAsync(
                     request,
-                    instanceId);
+                    instanceId,
+                    timeoutTime,
+                    retryIntervalTime);
             }
 
             return responseMessage;

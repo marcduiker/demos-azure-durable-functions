@@ -1,4 +1,22 @@
-### Synchronous call to the Hello Name Orchestration Function.
+### Start the Hello Name Orchestration Function and wait until it has finished
+### using the default values the Durable Functions extension uses.
+POST http://localhost:7071/api/startandwait/HelloName
+Content-Type: application/json
+
+"I ❤ Serverless (using defaults)"
+
+
+### Start the Hello Name Orchestration Function and wait until it has finished
+### using the speficied timeout value.
+POST http://localhost:7071/api/startandwait/HelloName
+    ?timeout=8
+Content-Type: application/json
+
+"I ❤ Serverless (only timeout)"
+
+
+### Start the Hello Name Orchestration Function and wait until it has finished
+### using the specified values for timeout and retry interval.
 POST http://localhost:7071/api/startandwait/HelloName
     ?timeout=12
     &interval=2
@@ -7,23 +25,8 @@ Content-Type: application/json
 "I ❤ Serverless (timeout and interval)"
 
 
-### Synchronous call to the Hello Name Orchestration Function.
-POST http://localhost:7071/api/startandwait/HelloName
-    ?timeout=8
-Content-Type: application/json
-
-"I ❤ Serverless (only timeout)"
-
-
-### Synchronous call to the Hello Name Orchestration Function.
-POST http://localhost:7071/api/startandwait/HelloName
-Content-Type: application/json
-
-"I ❤ Serverless (using defaults)"
-
-
-### Asynchronous call to the LongRunning Orchestration Function.
-### The Execution time will be longer than timeout so the 
+### Start the LongRunning Orchestration Function.
+### The Execution time will be longer than the timeout so the 
 ### StatusResponseMessage is returned instead of the orchestration result.
 POST http://localhost:7071/api/startandwait/LongRunning
     ?timeout=12
@@ -31,6 +34,7 @@ POST http://localhost:7071/api/startandwait/LongRunning
 Content-Type: application/json
 
 20
+
 
 ### Checks the status of an orchestration function.
 ### Update this orchestrationInstanceId so it matches the ID of your
