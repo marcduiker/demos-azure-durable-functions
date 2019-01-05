@@ -1,0 +1,20 @@
+### Synchronous call the Hello Name Orchestration Function
+POST http://localhost:7071/api/startandwait/HelloName
+    ?timeout=12
+    &interval=2
+Content-Type: application/json
+
+"I ❤ Serverless (timeout and interval)"
+
+### Synchronous call the Hello Name Orchestration Function
+POST http://localhost:7071/api/startandwait/HelloName
+    ?timeout=8
+Content-Type: application/json
+
+"I ❤ Serverless (only timeout)"
+
+### Synchronous call the Hello Name Orchestration Function
+POST http://localhost:7071/api/startandwait/HelloName
+Content-Type: application/json
+
+"I ❤ Serverless (using defaults)"

@@ -1,11 +1,11 @@
 ### Asynchronous call the GetPlanetResidents Orchestration Function
-POST http://localhost:7071/api/orchestration/GetPlanetResidents
+POST http://localhost:7071/api/start/GetPlanetResidents
 Content-Type: application/json
 
 "tat"
 
 ### Synchronous call the GetPlanetResidents Orchestration Function
-POST http://localhost:7071/api/orchestration/GetPlanetResidents/wait
+POST http://localhost:7071/api/startandwait/GetPlanetResidents
     ?timeout=15
     &interval=3
 Content-Type: application/json
