@@ -38,14 +38,12 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
 
             HttpResponseMessage responseMessage = null;
 
-            if (timeoutTime != TimeSpan.Zero && retryIntervalTime != TimeSpan.Zero)
+            if (timeoutTime == TimeSpan.Zero && retryIntervalTime == TimeSpan.Zero)
             {
-                // Wait until the specified timeoutTime and check every retryIntervalTime:
+                // Wait using the default values in the Durable Functions extension (10 sec timeout, 1 sec interval):
                 responseMessage = await orchestrationClient.WaitForCompletionOrCreateCheckStatusResponseAsync(
                     request,
-                    instanceId,
-                    timeoutTime,
-                    retryIntervalTime);
+                    instanceId);
             }
 
             if (timeoutTime != TimeSpan.Zero && retryIntervalTime == TimeSpan.Zero)
@@ -57,12 +55,14 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
                     timeoutTime);
             }
 
-            if (timeoutTime == TimeSpan.Zero && retryIntervalTime == TimeSpan.Zero)
+            if (timeoutTime != TimeSpan.Zero && retryIntervalTime != TimeSpan.Zero)
             {
-                // Wait using the default values in the Durable Functions extension (10 sec timeout, 1 sec interval):
+                // Wait until the specified timeoutTime and check every retryIntervalTime:
                 responseMessage = await orchestrationClient.WaitForCompletionOrCreateCheckStatusResponseAsync(
                     request,
-                    instanceId);
+                    instanceId,
+                    timeoutTime,
+                    retryIntervalTime);
             }
 
             return responseMessage;
