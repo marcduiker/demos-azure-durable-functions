@@ -1,11 +1,11 @@
 ### ASynchronous call the GetCharacterInfo Orchestration Function
-POST http://localhost:7071/api/orchestration/GetCharacterInfo
+POST http://localhost:7071/api/start/GetCharacterInfo
 Content-Type: application/json
 
 "luke"
 
 ### Synchronous call the GetCharacterInfo Orchestration Function
-POST http://localhost:7071/api/orchestration/GetCharacterInfo/wait
+POST http://localhost:7071/api/startandwait/GetCharacterInfo
     ?timeout=12
     &interval=3
 Content-Type: application/json

@@ -1,21 +1,21 @@
-### Asynchronous call the Hello Name Orchestration Function
+### Asynchronous call to the Hello Name Orchestration Function.
 POST http://localhost:7071/api/start/HelloName
 Content-Type: application/json
 
-"Serverless Computing London"
+"I ❤ Serverless"
 
-### Synchronous call the Hello Name Orchestration Function
-POST http://localhost:7071/api/startandwait/HelloName
-    ?timeout=9
-    &interval=3
+
+### Asynchronous call to the Hello Name Orchestration Function with an instance id.
+POST http://localhost:7071/api/start/HelloName/{{$guid}}
 Content-Type: application/json
 
-"Serverless Computing London"
+"I ❤ Serverless"
 
-### Check the status of the Hello World function.
+
+### Checks the status of an orchestration function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 98ce0997452c4671ab99cd8c593f535b
+@orchestrationInstanceId = d8b1daa9c048474fb89c1139c981f12d
 @storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub=DurableFunctionsHub
