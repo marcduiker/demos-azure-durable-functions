@@ -1,0 +1,28 @@
+### Retrieve the status of all orchestrations in the Function App.
+### Returns a collection of status messages.
+POST http://localhost:7071/api/status
+Content-Type: application/json
+
+{}
+
+### Retrieve the status for several orchestrations based on
+### a list of OrchestrationRuntimeStatus enum values and a DateTime range.
+### Returns a collection of status messages.
+### Valid OrchestrationRuntimeStatus values:
+###     Running = 0,
+###     Completed = 1,
+###     ContinuedAsNew = 2,
+###     Failed = 3,
+###     Canceled = 4,
+###     Terminated = 5,
+###     Pending = 6
+
+POST http://localhost:7071/api/status
+Content-Type: application/json
+
+{
+    "createdFrom" : "2019-02-02T00:00:00Z",
+    "createdTo" : "2019-02-03T00:00:00Z",
+    "statussesToMatch" : [3]
+}
+

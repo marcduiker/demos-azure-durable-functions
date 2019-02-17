@@ -1,11 +1,11 @@
 ### Start the HelloName orchestration function.
-POST http://localhost:7071/api/start/HelloName
+POST http://localhost:7071/api/start/HelloNameOrchestration
 Content-Type: application/json
 
 "I ❤ Serverless"
 
 ### Start the Hello Name orchestration function and wait for its completion.
-POST http://localhost:7071/api/startandwait/HelloName
+POST http://localhost:7071/api/startandwait/HelloNameOrchestration
     ?timeout=9
     &interval=3
 Content-Type: application/json
@@ -17,7 +17,8 @@ Content-Type: application/json
 ### running orchestration instance.
 @orchestrationInstanceId = 98ce0997452c4671ab99cd8c593f535b
 @storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
-    ?taskHub=DurableFunctionsHub
+    ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}
