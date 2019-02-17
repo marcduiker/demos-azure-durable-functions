@@ -1,6 +1,6 @@
 ### Start the HelloName orchestration function.
 ### Returns a status message.
-POST http://localhost:7071/api/start/HelloName
+POST http://localhost:7071/api/start/HelloNameOrchestration
 Content-Type: application/json
 
 "I ❤ Serverless"
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ### Start the HelloName orchestration function with an orchestration instance id.
 ### Returns a status message.
-POST http://localhost:7071/api/start/HelloName/{{$guid}}
+POST http://localhost:7071/api/start/HelloNameOrchestration/{{$guid}}
 Content-Type: application/json
 
 "I ❤ Serverless"
@@ -17,9 +17,10 @@ Content-Type: application/json
 ### Checks the status of an orchestration function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = d8b1daa9c048474fb89c1139c981f12d
-@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@orchestrationInstanceId = b31b9d40882a486b92d7dd336b0b5c11
+@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
+@hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
-    ?taskHub=DurableFunctionsHub
+    ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}

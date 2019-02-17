@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ### Start the Hello Name Orchestration Function and wait until it has finished
 ### using the speficied timeout value.
-POST http://localhost:7071/api/startandwait/HelloName
+POST http://localhost:7071/api/startandwait/HelloNameOrchestration
     ?timeout=8
 Content-Type: application/json
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 
 ### Start the Hello Name Orchestration Function and wait until it has finished
 ### using the specified values for timeout and retry interval.
-POST http://localhost:7071/api/startandwait/HelloName
+POST http://localhost:7071/api/startandwait/HelloNameOrchestration
     ?timeout=12
     &interval=2
 Content-Type: application/json
@@ -28,7 +28,7 @@ Content-Type: application/json
 ### Start the LongRunning Orchestration Function.
 ### The Execution time will be longer than the timeout so the 
 ### StatusResponseMessage is returned instead of the orchestration result.
-POST http://localhost:7071/api/startandwait/LongRunning
+POST http://localhost:7071/api/startandwait/LongRunningOrchestration
     ?timeout=12
     &interval=2
 Content-Type: application/json
@@ -41,7 +41,8 @@ Content-Type: application/json
 ### running orchestration instance.
 @orchestrationInstanceId = d8b1daa9c048474fb89c1139c981f12d
 @storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
-    ?taskHub=DurableFunctionsHub
+    ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}

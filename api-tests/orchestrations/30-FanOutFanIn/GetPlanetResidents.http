@@ -18,7 +18,8 @@ Content-Type: application/json
 ### so it matches the ID of your running orchestration instance.
 @orchestrationInstanceId = 57c3b27c284d4661915a4c10a82872d5
 @storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
-    ?taskHub=DurableFunctionsHub
+    ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}

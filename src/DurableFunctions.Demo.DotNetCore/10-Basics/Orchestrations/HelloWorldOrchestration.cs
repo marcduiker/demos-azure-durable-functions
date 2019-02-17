@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
 {
-    public static class HelloWorld
+    public static class HelloWorldOrchestration
     {
-        [FunctionName(nameof(HelloWorld))]
+        [FunctionName(nameof(HelloWorldOrchestration))]
         public static async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)

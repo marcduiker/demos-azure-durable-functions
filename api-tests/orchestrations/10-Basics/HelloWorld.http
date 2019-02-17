@@ -1,19 +1,20 @@
 ### Start the HelloWorld orchestration function.
-POST http://localhost:7071/api/start/HelloWorld
+POST http://localhost:7071/api/start/HelloWorldOrchestration
 
 
 ### Check the status of the Hello World function.
 ### Update this orchestrationInstanceId so it matches the ID of your
 ### running orchestration instance.
-@orchestrationInstanceId = 71098a6a1c9c403fb1306ad226fa659c
-@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@orchestrationInstanceId = 251372305f484f1e9a54799d4804c505
+@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
+@hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
-    ?taskHub=DurableFunctionsHub
+    ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}
 
 
 ### Start the HelloWorld orchestration function and wait until its completion.
-POST http://localhost:7071/api/startandwait/HelloWorld
+POST http://localhost:7071/api/startandwait/HelloWorldOrchestration
     ?timeout=12
     &interval=3

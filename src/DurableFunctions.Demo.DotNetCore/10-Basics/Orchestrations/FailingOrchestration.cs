@@ -6,18 +6,16 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
 {
-    public static class HelloName
+    public static class FailingOrchestration
     {
-        [FunctionName(nameof(HelloName))]
+        [FunctionName(nameof(FailingOrchestration))]
         public static async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
-            var name = context.GetInput<string>();
-
             var result = await context.CallActivityAsync<string>(
-                nameof(HelloNameActivity), 
-                name);
+                nameof(FailingActivity),
+                string.Empty);
 
             return result;
         }
