@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -8,7 +9,7 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Starters
 {
-    public static class HttpStartAndWait
+    public class HttpStartAndWait
     {
         /// <summary>
         /// This function starts a new orchestration in the same Function App
@@ -22,7 +23,7 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
         /// <param name="log">ILogger implementation.</param>
         /// <returns>An HttpResponseMessage containing the id and status of the orchestration instance.</returns>
         [FunctionName(nameof(HttpStartAndWait))]
-        public static async Task<HttpResponseMessage> Run(
+        public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "startandwait/{orchestrationName}")]HttpRequestMessage request, 
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             string orchestrationName,

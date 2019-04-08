@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
 {
-    public static class SleepingActivity
+    public class SleepingActivity
     {
         [FunctionName(nameof(SleepingActivity))]
-        public static string Run(
+        public string Run(
             [ActivityTrigger] int sleepTimeSeconds,
             ILogger logger)
         {

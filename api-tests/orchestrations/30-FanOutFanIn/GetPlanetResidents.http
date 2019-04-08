@@ -1,11 +1,11 @@
 ### Asynchronous call the GetPlanetResidents Orchestration Function
-POST http://localhost:7071/api/start/GetPlanetResidents
+POST http://localhost:7071/api/start/GetPlanetResidentsOrchestration
 Content-Type: application/json
 
 "tat"
 
 ### Synchronous call the GetPlanetResidents Orchestration Function
-POST http://localhost:7071/api/startandwait/GetPlanetResidents
+POST http://localhost:7071/api/startandwait/GetPlanetResidentsOrchestration
     ?timeout=15
     &interval=3
 Content-Type: application/json
@@ -16,8 +16,8 @@ Content-Type: application/json
 ### Check the status of the orchestration function.
 ### Update the orchestrationInstanceId and storageCode 
 ### so it matches the ID of your running orchestration instance.
-@orchestrationInstanceId = 57c3b27c284d4661915a4c10a82872d5
-@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@orchestrationInstanceId = 140725d1f07a4d9c9dbe1a0d437f4b00
+@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
 @hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub={{hubName}}

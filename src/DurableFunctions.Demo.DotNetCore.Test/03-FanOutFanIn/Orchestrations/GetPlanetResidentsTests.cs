@@ -22,9 +22,10 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
         {
             // Arrange
             var fakeOrchestrationContext = GetFakeOrchestrationContextReturnNullForPlanet();
+            var getPlanetResidentsOrchestration = new GetPlanetResidentsOrchestration();
 
             // Act
-            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = getPlanetResidentsOrchestration.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Should().BeNull();
@@ -37,9 +38,10 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
             // Arrange
             const int numberOfResidents = 10;
             var fakeOrchestrationContext = GetFakeOrchestrationContextWithPlanetAndCharacters(numberOfResidents);
+            var getPlanetResidentsOrchestration = new GetPlanetResidentsOrchestration();
 
             // Act
-            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = getPlanetResidentsOrchestration.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Count().Should().Be(10);
@@ -51,9 +53,10 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
         {
             // Arrange
             var fakeOrchestrationContext = GetFakeOrchestrationContextWithPlanetAndCharacters();
-
+            var getPlanetResidentsOrchestration = new GetPlanetResidentsOrchestration();
+            
             // Act
-            var result = GetPlanetResidents.Run(fakeOrchestrationContext, GetFakeLogger());
+            var result = getPlanetResidentsOrchestration.Run(fakeOrchestrationContext, GetFakeLogger());
 
             // Assert
             result.Result.Residents.Should().NotBeEmpty();
@@ -62,10 +65,14 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
 
         private static DurableOrchestrationContextBase GetFakeOrchestrationContextReturnNullForPlanet()
         {
-            var mock = new Mock<DurableOrchestrationContextBase>();
+            var mock = new Mock<DurableOrchestrationContextBase>(MockBehavior.Strict);
+            mock.Setup(
+                context => context.GetInput<string>())
+                .Returns("tatooine");
+
             mock.Setup(
                 context => context.CallActivityAsync<Planet>(
-                    nameof(SearchPlanet), 
+                    nameof(SearchPlanetActivity), 
                     It.IsAny<string>()))
                 .Returns(Task.FromResult((Planet)null));
 
@@ -75,16 +82,20 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
         private DurableOrchestrationContextBase GetFakeOrchestrationContextWithPlanetAndCharacters(int numberOfResidents = 3)
         {
             _fixture.RepeatCount = numberOfResidents;
-            var mock = new Mock<DurableOrchestrationContextBase>();
+            var mock = new Mock<DurableOrchestrationContextBase>(MockBehavior.Strict);
+            mock.Setup(
+                context => context.GetInput<string>())
+                .Returns("tatooine");
+
             mock.Setup(
                 context => context.CallActivityAsync<Planet>(
-                    nameof(SearchPlanet), 
+                    nameof(SearchPlanetActivity), 
                     It.IsAny<string>()))
                 .Returns(Task.FromResult(_fixture.Create<Planet>()));
 
             mock.Setup(
                 context => context.CallActivityAsync<string>(
-                    nameof(GetCharacter), 
+                    nameof(GetCharacterActivity), 
                     It.IsAny<string>()))
                 .Returns(Task.FromResult(_fixture.Create<string>()));
 

@@ -1,6 +1,12 @@
+POST http://localhost:7071/api/startandwait/LargeMessageOrchestration
+Content-Type: application/json
+
+10
+
+
 ### Start the Hello Name Orchestration Function and wait until it has finished
 ### using the default values the Durable Functions extension uses.
-POST http://localhost:7071/api/startandwait/HelloName
+POST http://localhost:7071/api/startandwait/HelloNameOrchestration
 Content-Type: application/json
 
 "I ❤ Serverless (using defaults)"

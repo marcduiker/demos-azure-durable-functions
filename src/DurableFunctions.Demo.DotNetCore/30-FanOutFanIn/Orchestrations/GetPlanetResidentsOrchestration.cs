@@ -9,10 +9,10 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations
 {
-    public static class GetPlanetResidents
+    public class GetPlanetResidentsOrchestration
     {
-        [FunctionName(nameof(GetPlanetResidents))]
-        public static async Task<PlanetResidents> Run(
+        [FunctionName(nameof(GetPlanetResidentsOrchestration))]
+        public async Task<PlanetResidents> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
@@ -21,7 +21,7 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations
             var result = new PlanetResidents();
 
             var planetResult = await context.CallActivityAsync<Planet>(
-                nameof(SearchPlanet),
+                nameof(SearchPlanetActivity),
                 planetName);
 
             if (planetResult != null)
@@ -33,7 +33,7 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations
                 {
                     tasks.Add(
                         context.CallActivityAsync<string>(
-                            nameof(GetCharacter),
+                            nameof(GetCharacterActivity),
                             residentUrl)
                     );
                 }
