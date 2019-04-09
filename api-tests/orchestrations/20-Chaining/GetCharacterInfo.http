@@ -16,8 +16,8 @@ Content-Type: application/json
 ### Check the status of the orchestration function.
 ### Update the orchestrationInstanceId and storageCode 
 ### so it matches the ID of your running orchestration instance.
-@orchestrationInstanceId = 7e83e30596eb4d02b1580b4df50436b6
-@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+@orchestrationInstanceId = cd56490764114ea79406c3dab1a5bb85
+@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
 @hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
     ?taskHub={{hubName}}

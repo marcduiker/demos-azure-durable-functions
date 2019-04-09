@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models
@@ -12,5 +13,8 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models
 
         [JsonProperty("homeworld")]
         public string PlanetUrl { get; set; }
+
+        [JsonProperty("species")]
+        public List<string> SpeciesUrl { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.Chaining.Activities;
 using DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models;
@@ -16,23 +17,27 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations
             ILogger log)
         {
             var name = context.GetInput<string>();
-
             var result = new CharacterInfo();
 
             var characterResult = await context.CallActivityAsync<Character>(
                 nameof(SearchCharacterActivity),
                 name);
-            
-            if (characterResult != null)
-            {
-                result.Name = characterResult.Name;
+            result.Name = characterResult.Name;
 
-                var planetResult = await context.CallActivityAsync<string>(
-                    nameof(GetPlanetActivity),
-                    characterResult.PlanetUrl);
+            var homeWorldResult = await context.CallActivityAsync<string>(
+                nameof(GetPlanetActivity),
+                characterResult.PlanetUrl);
+            result.HomeWorld = homeWorldResult;
 
-                result.HomeWorld = planetResult;
-            }
+            var speciesResult = await context.CallActivityAsync<Species>(
+                nameof(GetSpeciesActivity),
+                characterResult.SpeciesUrl.FirstOrDefault());
+            result.Species = speciesResult.Name;
+
+            var speciesHomeWorldResult = await context.CallActivityAsync<string>(
+                nameof(GetPlanetActivity),
+                speciesResult.HomeWorld);
+            result.SpeciesHomeWorld = speciesHomeWorldResult;
 
             return result;
         }
