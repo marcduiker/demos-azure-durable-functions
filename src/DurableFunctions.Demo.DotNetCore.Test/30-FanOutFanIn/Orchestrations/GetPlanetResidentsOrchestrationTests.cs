@@ -13,7 +13,7 @@ using Xunit;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrations
 {
-    public class GetPlanetResidentsTests
+    public class GetPlanetResidentsOrchestrationTests
     {
         private readonly Fixture _fixture = new Fixture();
 
