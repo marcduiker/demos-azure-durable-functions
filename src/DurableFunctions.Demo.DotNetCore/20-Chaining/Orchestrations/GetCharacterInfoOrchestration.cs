@@ -8,10 +8,10 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations
 {
-    public static class GetCharacterInfo
+    public class GetCharacterInfoOrchestration
     {
-        [FunctionName(nameof(GetCharacterInfo))]
-        public static async Task<CharacterInfo> Run(
+        [FunctionName(nameof(GetCharacterInfoOrchestration))]
+        public async Task<CharacterInfo> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
@@ -20,7 +20,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations
             var result = new CharacterInfo();
 
             var characterResult = await context.CallActivityAsync<Character>(
-                nameof(SearchCharacter),
+                nameof(SearchCharacterActivity),
                 name);
             
             if (characterResult != null)
@@ -28,7 +28,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations
                 result.Name = characterResult.Name;
 
                 var planetResult = await context.CallActivityAsync<string>(
-                    nameof(GetPlanet),
+                    nameof(GetPlanetActivity),
                     characterResult.PlanetUrl);
 
                 result.HomeWorld = planetResult;

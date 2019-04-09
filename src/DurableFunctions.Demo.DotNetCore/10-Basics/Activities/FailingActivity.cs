@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
 {
-    public static class FailingActivity
+    public class FailingActivity
     {
         [FunctionName(nameof(FailingActivity))]
-        public static string Run(
+        public string Run(
             [ActivityTrigger] string input,
             ILogger logger)
         {

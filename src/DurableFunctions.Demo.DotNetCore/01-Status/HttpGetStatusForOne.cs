@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Status
 {
-    public static class HttpGetStatusForOne
+    public class HttpGetStatusForOne
     {
         /// <summary>
         /// This function retrives the status for one orchestration in the same Function App
@@ -19,7 +19,7 @@ namespace DurableFunctions.Demo.DotNetCore.Status
         /// <param name="log">ILogger implementation.</param>
         /// <returns>A DurableOrchestrationStatus message.</returns>
         [FunctionName(nameof(HttpGetStatusForOne))]
-        public static async Task<DurableOrchestrationStatus> Run(
+        public async Task<DurableOrchestrationStatus> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "status/{id}")]HttpRequestMessage request,
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             string id,

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Starters
 {
-    public static class HttpStart
+    public class HttpStart
     {
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
         /// <param name="log">ILogger implementation.</param>
         /// <returns>An HttpResponseMessage containing the id and status of the orchestration instance.</returns>
         [FunctionName(nameof(HttpStart))]
-        public static async Task<HttpResponseMessage> Run(
+        public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "start/{orchestrationName}/{id?}")]HttpRequestMessage req, 
             [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
             string orchestrationName,
