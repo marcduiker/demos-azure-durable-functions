@@ -23,35 +23,35 @@ Contains the following functions to start orchestrations:
 
 Run the solution and use the requests in [Start.http](/api-tests/orchestrations/00-Starters/Start.http) and [StartAndWait.http](/api-tests/orchestrations/00-Starters/StartAndWait.http) to learn how orchestrations can be started over HTTP and discover how the status or result is returned.
 
-### 01-Basics
+### 10-Basics
 
 #### HelloWorld
 
-Shows how an orchestration function ([`HelloWorld`](/src/DurableFunctions.Demo.DotNetCore/01-Basics/Orchestrations/HelloWorld.cs)) calls an activity function ([`HelloWorldActivity`](/src/DurableFunctions.Demo.DotNetCore/01-Basics/Activities/HelloWorldActivity.cs)).
+Shows how an orchestration function ([`HelloWorldOrchestration`](/src/DurableFunctions.Demo.DotNetCore/10-Basics/Orchestrations/HelloWorldOrchestration.cs)) calls an activity function ([`HelloWorldActivity`](/src/DurableFunctions.Demo.DotNetCore/10-Basics/Activities/HelloWorldActivity.cs)).
 
-Run the solution and use the requests in [HelloWorld.http](/api-tests/orchestrations/01-Basics/HelloWorld.http) to start the orchestration locally.
+Run the solution and use the requests in [HelloWorld.http](/api-tests/orchestrations/10-Basics/HelloWorld.http) to start the orchestration locally.
 
 #### HelloName
 
-Shows how an orchestration function ([`HelloName`](/src/DurableFunctions.Demo.DotNetCore/01-Basics/Orchestrations/HelloName.cs)) calls an activity function ([`HelloNameActivity`](/src/DurableFunctions.Demo.DotNetCore/01-Basics/Activities/HelloWorldActivity.cs)) and passing a some data to the activity.
+Shows how an orchestration function ([`HelloName`](/src/DurableFunctions.Demo.DotNetCore/10-Basics/Orchestrations/HelloNameOrchestration.cs)) calls an activity function ([`HelloNameActivity`](/src/DurableFunctions.Demo.DotNetCore/10-Basics/Activities/HelloWorldActivity.cs)) and passing a some data to the activity.
 
-Run the Function App locally and use the requests in [HelloName.http](/api-tests/orchestrations/01-Basics/HelloName.http) to start the orchestration.
+Run the Function App locally and use the requests in [HelloName.http](/api-tests/orchestrations/10-Basics/HelloName.http) to start the orchestration.
 
 ### 02-Chaining
 
-Shows how an orchestration function ([`GetCharacterInfo`](/src/DurableFunctions.Demo.DotNetCore/02-Chaining/Orchestrations/GetCharacterInfo.cs)) calls two activity functions in a chain ([`SearchCharacter`](src/DurableFunctions.Demo.DotNetCore/02-Chaining/Activities/SearchCharacter.cs) -> [`GetPlanet`](/src/DurableFunctions.Demo.DotNetCore/02-Chaining/Activities/GetPlanet.cs)).
+Shows how an orchestration function ([`GetCharacterInfoOrchestration`](/src/DurableFunctions.Demo.DotNetCore/20-Chaining/Orchestrations/GetCharacterInfoOrchestration.cs)) calls two activity functions in a chain ([`SearchCharacterActivity`](src/DurableFunctions.Demo.DotNetCore/20-Chaining/Activities/SearchCharacterActivity.cs) -> [`GetPlanetActivity`](/src/DurableFunctions.Demo.DotNetCore/20-Chaining/Activities/GetPlanetActivity.cs)).
 
 The orchestration function requires a (partial) name of a Star Wars character. This character is searched in the `SearchCharacter` activity which uses the `swapi.co` API. When a character is returned the `GetPlanet` activity is called (also uses `swapi.co` again) to return the name of the home planet of the character. The full name of the character and the planet are returned from the orchestration.
 
-Run the solution and use the requests in [GetCharacterInfo.http](/api-tests/orchestrations/02-Chaining/GetCharacterInfo.http) to start the orchestration  locally.
+Run the solution and use the requests in [GetCharacterInfo.http](/api-tests/orchestrations/20-Chaining/GetCharacterInfo.http) to start the orchestration  locally.
 
 ### 03-FanOutFanIn
 
-Shows how an orchestration function ([`GetPlanetResidents`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Orchestrations/GetPlanetResidents.cs)) calls activity functions using the fan-out/fan-in pattern ([`SearchPlanet`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Activities/SearchPlanet.cs) -> n * [`GetCharacter`](/src/DurableFunctions.Demo.DotNetCore/03-FanOutFanIn/Activities/GetCharacter.cs)).
+Shows how an orchestration function ([`GetPlanetResidentsOrchestration`](/src/DurableFunctions.Demo.DotNetCore/30-FanOutFanIn/Orchestrations/GetPlanetResidentsOrchestration.cs)) calls activity functions using the fan-out/fan-in pattern ([`SearchPlanetActivity`](/src/DurableFunctions.Demo.DotNetCore/30-FanOutFanIn/Activities/SearchPlanetActivity.cs) -> n * [`GetCharacterActivity`](/src/DurableFunctions.Demo.DotNetCore/30-FanOutFanIn/Activities/GetCharacterActivity.cs)).
 
-The orchestration function requires a (partial) name of a Star Wars planet. This planet is searched in the `SearchPlanet` activity which uses the `swapi.co` API. When a planet is returned the `GetCharacter` activity is called for each of the residents found in the `SearchPlanet` result. The full name of the planet and the names of the planet residents are returned from the orchestration.
+The orchestration function requires a (partial) name of a Star Wars planet. This planet is searched in the `SearchPlanetActivity` activity which uses the `swapi.co` API. When a planet is returned the `GetCharacterActivity` activity is called for each of the residents found in the `SearchPlanet` result. The full name of the planet and the names of the planet residents are returned from the orchestration.
 
-Run the solution and use the requests in [GetPlanetResidents.http](/api-tests/orchestrations/03-FanOutFanIn/GetPlanetResidents.http) to start the orchestration locally.
+Run the solution and use the requests in [GetPlanetResidents.http](/api-tests/orchestrations/30-FanOutFanIn/GetPlanetResidents.http) to start the orchestration locally.
 
 ## Unit tests
 
