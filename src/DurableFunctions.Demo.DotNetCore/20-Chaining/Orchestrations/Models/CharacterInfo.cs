@@ -1,5 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrations.Models
+namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrators.Models
 {
     public sealed class CharacterInfo
     {

@@ -4,11 +4,11 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.LargeMessages.Orchestrations
+namespace DurableFunctions.Demo.DotNetCore.LargeMessages.Orchestrators
 {
-    public class LargeMessageOrchestration
+    public class LargeMessageOrchestrator
     {
-        [FunctionName(nameof(LargeMessageOrchestration))]
+        [FunctionName(nameof(LargeMessageOrchestrator))]
         public async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)

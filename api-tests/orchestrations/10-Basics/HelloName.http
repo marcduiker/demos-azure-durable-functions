@@ -1,24 +1,24 @@
-### Start the HelloName orchestration function.
-POST http://localhost:7071/api/start/HelloNameOrchestration
+### Start the HelloNameOrchestrator function.
+POST http://localhost:7071/api/start/HelloNameOrchestrator
 Content-Type: application/json
 
 "I ❤ Serverless"
 
-### Start the Hello Name orchestration function and wait for its completion.
-POST http://localhost:7071/api/startandwait/HelloNameOrchestration
-    ?timeout=9
-    &interval=3
+### Start the HelloNameOrchestrator function and wait for its completion.
+POST http://localhost:7071/api/startandwait/HelloNameOrchestrator
+    ?timeout=10
+    &interval=2
 Content-Type: application/json
 
 "I ❤ Serverless"
 
-### Check the status of the HelloName orchestration function.
-### Update this orchestrationInstanceId so it matches the ID of your
-### running orchestration instance.
-@orchestrationInstanceId = 98ce0997452c4671ab99cd8c593f535b
-@storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
+### Check the status of the HelloNameOrchestrator function.
+### Update this orchestratorInstanceId so it matches the ID of your
+### running orchestrator instance.
+@orchestratorInstanceId = 1f672918ba914ff6a224a960ec30a292
+@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
 @hubName=DurableDemo
-GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}
     ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}

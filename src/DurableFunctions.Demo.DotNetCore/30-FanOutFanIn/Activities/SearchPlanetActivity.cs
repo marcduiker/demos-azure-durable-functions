@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations.Models;
+using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;

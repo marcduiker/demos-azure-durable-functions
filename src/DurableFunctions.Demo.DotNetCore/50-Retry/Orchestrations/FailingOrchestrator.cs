@@ -6,11 +6,11 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.Retry.Orchestrations
+namespace DurableFunctions.Demo.DotNetCore.Retry.Orchestrators
 {
-    public class FailingOrchestration
+    public class FailingOrchestrator
     {
-        [FunctionName(nameof(FailingOrchestration))]
+        [FunctionName(nameof(FailingOrchestrator))]
         public async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
