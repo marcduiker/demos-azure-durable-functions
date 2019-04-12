@@ -2,16 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Activities;
-using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations.Models;
+using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations
+namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators
 {
-    public class GetPlanetResidentsOrchestration
+    public class GetPlanetResidentsOrchestrator
     {
-        [FunctionName(nameof(GetPlanetResidentsOrchestration))]
+        [FunctionName(nameof(GetPlanetResidentsOrchestrator))]
         public async Task<PlanetResidents> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)

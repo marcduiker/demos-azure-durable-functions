@@ -5,6 +5,9 @@ GET https://swapi.co/api/people?search={{personName}}
 ### Get planet 1
 GET https://swapi.co/api/planets/1/
 
+### Get species 1
+GET https://swapi.co/api/species/1/
+
 ### Search for planet 'tat'
 @planetName=tat
 GET https://swapi.co/api/planets?search={{planetName}}

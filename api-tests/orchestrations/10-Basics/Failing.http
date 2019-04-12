@@ -1,16 +1,16 @@
-### Start the Failing orchestration function.
-POST http://localhost:7071/api/start/FailingOrchestration
+### Start the FailingOrchestrator function.
+POST http://localhost:7071/api/start/FailingOrchestrator
 Content-Type: application/json
 
 {}
 
-### Check the status of the HelloName orchestration function.
-### Update this orchestrationInstanceId so it matches the ID of your
-### running orchestration instance.
-@orchestrationInstanceId = f66d07250e18402ea10b51a2aaa7bb84
+### Check the status of the orchestrator function.
+### Update this orchestratorInstanceId so it matches the ID of your
+### running orchestrator instance.
+@orchestratorInstanceId = f66d07250e18402ea10b51a2aaa7bb84
 @storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
 @hubName=DurableDemo
-GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}
     ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}

@@ -1,23 +1,23 @@
 using System.Threading.Tasks;
-using DurableFunctions.Demo.DotNetCore.Basics.Activities;
+using DurableFunctions.Demo.DotNetCore.LargeMessages.Activities;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
+namespace DurableFunctions.Demo.DotNetCore.LargeMessages.Orchestrators
 {
-    public class HelloNameOrchestration
+    public class LargeMessageOrchestrator
     {
-        [FunctionName(nameof(HelloNameOrchestration))]
+        [FunctionName(nameof(LargeMessageOrchestrator))]
         public async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
-            var name = context.GetInput<string>();
+            var nrOfChars = context.GetInput<int>();
 
             var result = await context.CallActivityAsync<string>(
-                nameof(HelloNameActivity), 
-                name);
+                nameof(LargeMessageActivity),
+                nrOfChars);
 
             return result;
         }

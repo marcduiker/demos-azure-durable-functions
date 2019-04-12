@@ -4,7 +4,7 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "SkipRemoteSwapi": false,
     "SwapiBaseUrl": "https://swapi.co/api/",
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1:10002/",
-    "AzureWebJobsDashboard": "UseDevelopmentStorage=true;DevelopmentStorageProxyUri=http://127.0.0.1:10002/"
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AzureWebJobsDashboard": "UseDevelopmentStorage=true"
   }
 }

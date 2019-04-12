@@ -4,20 +4,18 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrations
+namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrators
 {
-    public class LongRunningOrchestration
+    public class HelloWorldOrchestrator
     {
-        [FunctionName(nameof(LongRunningOrchestration))]
+        [FunctionName(nameof(HelloWorldOrchestrator))]
         public async Task<string> Run(
             [OrchestrationTrigger]DurableOrchestrationContextBase context,
             ILogger log)
         {
-            var sleepTimeSeconds = context.GetInput<int>();
-
             var result = await context.CallActivityAsync<string>(
-                nameof(SleepingActivity),
-                sleepTimeSeconds);
+                nameof(HelloWorldActivity),
+                null);
 
             return result;
         }

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 // ReSharper disable once CheckNamespace
-namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrations.Models
+namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators.Models
 {
     public sealed class Planet
     {

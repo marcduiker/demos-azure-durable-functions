@@ -1,29 +1,29 @@
-POST http://localhost:7071/api/startandwait/LargeMessageOrchestration
+POST http://localhost:7071/api/startandwait/LargeMessageOrchestrator
 Content-Type: application/json
 
 10
 
 
-### Start the Hello Name Orchestration Function and wait until it has finished
+### Start the Hello Name Orchestrator Function and wait until it has finished
 ### using the default values the Durable Functions extension uses.
-POST http://localhost:7071/api/startandwait/HelloNameOrchestration
+POST http://localhost:7071/api/startandwait/HelloNameOrchestrator
 Content-Type: application/json
 
 "I ❤ Serverless (using defaults)"
 
 
-### Start the Hello Name Orchestration Function and wait until it has finished
+### Start the Hello Name Orchestrator Function and wait until it has finished
 ### using the speficied timeout value.
-POST http://localhost:7071/api/startandwait/HelloNameOrchestration
+POST http://localhost:7071/api/startandwait/HelloNameOrchestrator
     ?timeout=8
 Content-Type: application/json
 
 "I ❤ Serverless (only timeout)"
 
 
-### Start the Hello Name Orchestration Function and wait until it has finished
+### Start the Hello Name Orchestrator Function and wait until it has finished
 ### using the specified values for timeout and retry interval.
-POST http://localhost:7071/api/startandwait/HelloNameOrchestration
+POST http://localhost:7071/api/startandwait/HelloNameOrchestrator
     ?timeout=12
     &interval=2
 Content-Type: application/json
@@ -31,10 +31,10 @@ Content-Type: application/json
 "I ❤ Serverless (timeout and interval)"
 
 
-### Start the LongRunning Orchestration Function.
+### Start the LongRunning Orchestrator Function.
 ### The Execution time will be longer than the timeout so the 
-### StatusResponseMessage is returned instead of the orchestration result.
-POST http://localhost:7071/api/startandwait/LongRunningOrchestration
+### StatusResponseMessage is returned instead of the orchestrator result.
+POST http://localhost:7071/api/startandwait/LongRunningOrchestrator
     ?timeout=12
     &interval=2
 Content-Type: application/json
@@ -42,13 +42,13 @@ Content-Type: application/json
 20
 
 
-### Checks the status of an orchestration function.
-### Update this orchestrationInstanceId so it matches the ID of your
-### running orchestration instance.
-@orchestrationInstanceId = d8b1daa9c048474fb89c1139c981f12d
+### Checks the status of an orchestrator function.
+### Update this orchestratorInstanceId so it matches the ID of your
+### running orchestrator instance.
+@orchestratorInstanceId = d8b1daa9c048474fb89c1139c981f12d
 @storageCode = jLm5dvj2FG6pIVhnZaI2Pf5InGpM1uMoRkhzFRGnmnL3LPWsQ5a3ag==
 @hubName=DurableDemo
-GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestrationInstanceId}}
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}
     ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}

@@ -11,45 +11,45 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
     {
 
         /// <summary>
-        /// This function starts a new orchestration in the same Function App
-        /// which matches the orchestrationName parameter.
+        /// This function starts a new Orchestrator in the same Function App
+        /// which matches the OrchestratorName parameter.
         /// </summary>
-        /// <param name="req">The HttpRequestMessage which can contain input data for the orchestration.</param>
-        /// <param name="orchestrationClient">An instance of the DurableOrchestrationClient used to start a new orchestration.</param>
-        /// <param name="orchestrationName">The name of the orchestration function to start.</param>
-        /// <param name="id">Optional id for the orchestration function instance.</param>
+        /// <param name="req">The HttpRequestMessage which can contain input data for the Orchestrator.</param>
+        /// <param name="orchestratorClient">An instance of the DurableOrchestrationClient used to start a new Orchestrator.</param>
+        /// <param name="orchestratorName">The name of the Orchestrator function to start.</param>
+        /// <param name="id">Optional id for the Orchestrator function instance.</param>
         /// <param name="log">ILogger implementation.</param>
-        /// <returns>An HttpResponseMessage containing the id and status of the orchestration instance.</returns>
+        /// <returns>An HttpResponseMessage containing the id and status of the Orchestrator instance.</returns>
         [FunctionName(nameof(HttpStart))]
         public async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "start/{orchestrationName}/{id?}")]HttpRequestMessage req, 
-            [OrchestrationClient]DurableOrchestrationClientBase orchestrationClient,
-            string orchestrationName,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "start/{orchestratorName}/{id?}")]HttpRequestMessage req, 
+            [OrchestrationClient]DurableOrchestrationClientBase orchestratorClient,
+            string orchestratorName,
             string id,
             ILogger log)
         {
-            dynamic orchestrationInput = await req.Content.ReadAsAsync<object>();
+            dynamic orchestratorInput = await req.Content.ReadAsAsync<object>();
 
             string instanceId = id;
             if (string.IsNullOrEmpty(instanceId))
             {
-                // Start a new orchestration and let Durable Functions generate the instance id.
-                instanceId = await orchestrationClient.StartNewAsync(
-                    orchestrationName,
-                    orchestrationInput);
+                // Start a new Orchestrator and let Durable Functions generate the instance id.
+                instanceId = await orchestratorClient.StartNewAsync(
+                    orchestratorName,
+                    orchestratorInput);
             }
             else
             {
-                // Start a new orchestration and use your own instance id.
-                instanceId = await orchestrationClient.StartNewAsync(
-                    orchestrationName,
+                // Start a new Orchestrator and use your own instance id.
+                instanceId = await orchestratorClient.StartNewAsync(
+                    orchestratorName,
                     instanceId,
-                    orchestrationInput);
+                    orchestratorInput);
             }
 
-            log.LogInformation($"Started orchestration with ID = '{instanceId}'...");
+            log.LogInformation($"Started Orchestrator with ID = '{instanceId}'...");
 
-            return orchestrationClient.CreateCheckStatusResponse(req, instanceId);
+            return orchestratorClient.CreateCheckStatusResponse(req, instanceId);
         }
     }
 }

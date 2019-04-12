@@ -1,14 +1,14 @@
-### Retrieve the status of all orchestrations in the Function App.
+### Retrieve the status of all orchestrators in the Function App.
 ### Returns a collection of status messages.
 POST http://localhost:7071/api/status
 Content-Type: application/json
 
 {}
 
-### Retrieve the status for several orchestrations based on
-### a list of OrchestrationRuntimeStatus enum values and a DateTime range.
+### Retrieve the status for several orchestrators based on
+### a list of OrchestratorRuntimeStatus enum values and a DateTime range.
 ### Returns a collection of status messages.
-### Valid OrchestrationRuntimeStatus values:
+### Valid OrchestratorRuntimeStatus values:
 ###     Running = 0,
 ###     Completed = 1,
 ###     ContinuedAsNew = 2,
