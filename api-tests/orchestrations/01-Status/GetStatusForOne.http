@@ -8,3 +8,10 @@ GET http://localhost:7071/api/status/{{instanceId}}
 GET http://localhost:7071/api/status/{{instanceId}}
     ?showHistory=true
     &showHistoryOutput=true
+
+### This is using the default Durable Functions HTTP API to get the status of one instance.
+@instanceId = 182b734e0c7441a9825e949789a2ea43
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceId}}
+    &showHistory=true
+    &showHistoryOutput=true
+    &showInput=true
