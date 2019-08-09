@@ -1,7 +1,8 @@
 ### Retrieve the status of a specific orchestrator by id.
 ### Returns a status message.
-@instanceId=5
+@instanceId=b11f3c0f59b74556bfe22d796d711514
 GET http://localhost:7071/api/status/{{instanceId}}
+
 
 ### Retrieve the status including the history of a specific orchestrator by id.
 ### Returns a status message.
@@ -9,9 +10,11 @@ GET http://localhost:7071/api/status/{{instanceId}}
     ?showHistory=true
     &showHistoryOutput=true
 
+
 ### This is using the default Durable Functions HTTP API to get the status of one instance.
-@instanceId = 182b734e0c7441a9825e949789a2ea43
+@taskHub = DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
     &showHistory=true
     &showHistoryOutput=true
     &showInput=true

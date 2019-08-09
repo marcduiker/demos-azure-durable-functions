@@ -6,15 +6,16 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 
 namespace DurableFunctions.Demo.DotNetCore._02_Maintenance
 {
-    public class PurgeHistoryForOne
+    public class TerminateInstance
     {
-        [FunctionName(nameof(PurgeHistoryForOne))]
+        [FunctionName(nameof(TerminateInstance))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Admin, "DELETE", Route ="purge/{instanceId}")]HttpRequestMessage request,
+            [HttpTrigger(AuthorizationLevel.Admin, "POST", Route ="terminate/{instanceId}")]HttpRequestMessage request,
             [OrchestrationClient] DurableOrchestrationClientBase client,
             string instanceId)
         {
-            await client.PurgeInstanceHistoryAsync(instanceId);
+            var reason = await request.Content.ReadAsAsync<string>();
+            await client.TerminateAsync(instanceId, reason);
 
             return new AcceptedResult();
         }
