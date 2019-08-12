@@ -1,0 +1,13 @@
+### Delete one instance using the custom httptrigger in the solution.
+
+@instanceId = 05da224f27a34c738a81c6a4f9d72aa9
+DELETE http://localhost:7071/api/purge/{{instanceId}}
+Content-Type: application/json
+
+### Delete one instance using the default Durable Functions HTTP API.
+@taskHub = DurableDemo
+@systemKey = 0
+DELETE http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
+    &code={{systemKey}}
+Content-Type: application/json

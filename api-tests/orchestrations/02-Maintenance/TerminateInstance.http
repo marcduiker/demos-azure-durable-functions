@@ -1,0 +1,31 @@
+## First start the never ending ochestration
+# @name neverending
+POST http://localhost:7071/api/start/NeverEndingOrchestration
+Content-Type: application/json
+
+
+### Get the status of this orchestration
+@instanceId = {{neverending.response.body.$.id}}
+@taskHub = DurableDemo
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
+
+
+### Terminate the running instance using the custom httptrigger in the solution.
+@instanceId = {{neverending.response.body.$.id}}
+@reason = "This orchestration is stuck in an endless loop."
+POST http://localhost:7071/api/terminate/{{instanceId}}
+Content-Type: application/json
+
+{{reason}}
+
+
+### Terminate the running instance using the default Durable Functions HTTP API.
+@instanceId = {{neverending.response.body.$.id}}
+@taskHub = DurableDemo
+@systemKey = 0
+POST http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceId}}/terminate
+    ?taskHub={{taskHub}}
+    &code={{systemKey}}
+    &reason={{reason}}
+    

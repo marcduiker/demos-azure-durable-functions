@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DurableFunctions.Demo.DotNetCore", "DurableFunctions.Demo.DotNetCore\DurableFunctions.Demo.DotNetCore.csproj", "{D1297030-664A-46F3-A179-1E5590CF566C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurableFunctions.Demo.DotNetCore.Test", "DurableFunctions.Demo.DotNetCore.Test\DurableFunctions.Demo.DotNetCore.Test.csproj", "{C89F1BB3-B618-4DCE-9039-2E846876C0B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DurableFunctions.Demo.DotNetCore.Test", "DurableFunctions.Demo.DotNetCore.Test\DurableFunctions.Demo.DotNetCore.Test.csproj", "{C89F1BB3-B618-4DCE-9039-2E846876C0B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
