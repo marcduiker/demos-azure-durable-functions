@@ -1,0 +1,12 @@
+### Delete multiple instances using the default Durable Functions HTTP API.
+@createdFromDate = 2019-08-01T00:00:00Z
+@createdToDate = 2019-08-13T00:00:00Z
+@taskHub = DurableDemo
+@systemKey = 0
+DELETE http://localhost:7071/runtime/webhooks/durabletask/instances
+    ?taskHub={{taskHub}}
+    &code={systemKey}
+    &createdTimeFrom={{createdFromDate}}
+    &createdTimeTo={{createdToDate}}
+    &runtimeStatus=[1,5]
+Content-Type: application/json

@@ -21,7 +21,7 @@ POST http://localhost:7071/api/status
 Content-Type: application/json
 
 {
-    "createdFrom" : "2019-08-01T00:00:00Z",
-    "createdTo" : "2019-08-10T00:00:00Z",
+    "createdFrom" : "2019-07-01T00:00:00Z",
+    "createdTo" : "2019-07-30T00:00:00Z",
     "statussesToMatch" : [1,5]
 }
