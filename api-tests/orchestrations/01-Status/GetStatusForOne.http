@@ -1,6 +1,6 @@
 ### Retrieve the status of a specific orchestrator by id.
 ### Returns a status message.
-@instanceId=b11f3c0f59b74556bfe22d796d711514
+@instanceId=cfc8fda6fe5241bb9e609f212d28f7be
 GET http://localhost:7071/api/status/{{instanceId}}
 
 

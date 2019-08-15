@@ -1,6 +1,6 @@
 ### Delete one instance using the custom httptrigger in the solution.
 
-@instanceId = 05da224f27a34c738a81c6a4f9d72aa9
+@instanceId = f5ceb57f4185460dabbf418b4e0116de
 DELETE http://localhost:7071/api/purge/{{instanceId}}
 Content-Type: application/json
 
