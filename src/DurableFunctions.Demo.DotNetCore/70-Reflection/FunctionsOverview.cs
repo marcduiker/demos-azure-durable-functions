@@ -10,5 +10,7 @@ namespace DurableFunctions.Demo.DotNetCore.Reflection
         public IEnumerable<string> OrchestratorFunctions { get; set; }
 
         public IEnumerable<string> ActivityFunctions { get; set; }
+
+        public IEnumerable<string> OtherFunctions { get; set; }
     }
 }

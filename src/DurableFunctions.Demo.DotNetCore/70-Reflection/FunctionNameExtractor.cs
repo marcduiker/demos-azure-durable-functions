@@ -16,15 +16,18 @@ namespace DurableFunctions.Demo.DotNetCore.Reflection
                 .SelectMany(t => t.GetMethods())
                 .Where(m => m.GetCustomAttributes(typeof(FunctionNameAttribute)).Any())
                 .ToImmutableList();
-            var clientMethods = GetMethodsWithAttributeOf<OrchestrationClientAttribute>(functionMethods); 
-            var orchestratorMethods = GetMethodsWithAttributeOf<OrchestrationTriggerAttribute>(functionMethods);
-            var activityMethods = GetMethodsWithAttributeOf<ActivityTriggerAttribute>(functionMethods);
+            var clientMethods = GetMethodsWithAttributeOf<OrchestrationClientAttribute>(functionMethods).ToImmutableList(); 
+            var orchestratorMethods = GetMethodsWithAttributeOf<OrchestrationTriggerAttribute>(functionMethods).ToImmutableList();
+            var activityMethods = GetMethodsWithAttributeOf<ActivityTriggerAttribute>(functionMethods).ToImmutableList();
+            var otherMethods = functionMethods.Except(clientMethods).Except(orchestratorMethods)
+                .Except(activityMethods);
 
             return new FunctionsOverview
             {
                 ActivityFunctions = GetFunctionNamesInAlphabeticalOrder(activityMethods),
                 ClientFunctions = GetFunctionNamesInAlphabeticalOrder(clientMethods),
-                OrchestratorFunctions = GetFunctionNamesInAlphabeticalOrder(orchestratorMethods)
+                OrchestratorFunctions = GetFunctionNamesInAlphabeticalOrder(orchestratorMethods),
+                OtherFunctions = GetFunctionNamesInAlphabeticalOrder(otherMethods)
             };
         }
 
