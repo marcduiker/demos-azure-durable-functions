@@ -1,4 +1,5 @@
 ### Asynchronous call the GetPlanetResidentsOrchestrator Function
+# @name GetPlanetResidents
 POST http://localhost:7071/api/start/GetPlanetResidentsOrchestrator
 Content-Type: application/json
 
@@ -16,7 +17,7 @@ Content-Type: application/json
 ### Check the status of the orchestrator function.
 ### Update the orchestratorInstanceId and storageCode 
 ### so it matches the ID of your running orchestrator instance.
-@orchestratorInstanceId = d203afd65b494c8887fe153f5d7556bc
+@orchestratorInstanceId = {{GetPlanetResidents.response.body.$.id}}
 @storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
 @hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}

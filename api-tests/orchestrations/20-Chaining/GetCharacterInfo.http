@@ -1,4 +1,5 @@
-### ASynchronous call the GetCharacterInfoOrchestrator Function
+### Asynchronous call the GetCharacterInfoOrchestrator Function
+# @name GetCharacterInfo
 POST http://localhost:7071/api/start/GetCharacterInfoOrchestrator
 Content-Type: application/json
 
@@ -16,7 +17,7 @@ Content-Type: application/json
 ### Check the status of the orchestrator function.
 ### Update the orchestratorInstanceId and storageCode 
 ### so it matches the ID of your running orchestrator instance.
-@orchestratorInstanceId = 92b22987e57b46f399665684624297c3
+@orchestratorInstanceId = {{GetCharacterInfo.response.body.$.id}}
 @storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
 @hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}
