@@ -5,15 +5,6 @@ Content-Type: application/json
 
 "luke"
 
-### Synchronous call the GetCharacterInfoOrchestrator Function
-POST http://localhost:7071/api/startandwait/GetCharacterInfoOrchestrator
-    ?timeout=15
-    &interval=2
-Content-Type: application/json
-
-"luke"
-
-
 ### Check the status of the orchestrator function.
 ### Update the orchestratorInstanceId and storageCode 
 ### so it matches the ID of your running orchestrator instance.
@@ -24,3 +15,15 @@ GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorI
     ?taskHub={{hubName}}
     &connection=Storage
     &code={{storageCode}}
+
+
+
+
+
+### Synchronous call the GetCharacterInfoOrchestrator Function
+POST http://localhost:7071/api/startandwait/GetCharacterInfoOrchestrator
+    ?timeout=15
+    &interval=2
+Content-Type: application/json
+
+"luke"
