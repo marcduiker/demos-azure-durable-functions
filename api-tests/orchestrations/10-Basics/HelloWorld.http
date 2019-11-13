@@ -6,7 +6,7 @@ POST http://localhost:7071/api/start/HelloWorldOrchestrator
 ### Update this orchestratorInstanceId so it matches the ID of your
 ### running orchestrator instance.
 @orchestratorInstanceId = 251372305f484f1e9a54799d4804c505
-@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
+@storageCode = 1BydX/YVRj1/olUY7XxQ7Lf1xFs9seG00DUa3hl1grb2ehoS5T3bCQ==
 @hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}
     ?taskHub={{hubName}}

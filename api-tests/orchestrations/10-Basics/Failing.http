@@ -8,7 +8,7 @@ Content-Type: application/json
 ### Update this orchestratorInstanceId so it matches the ID of your
 ### running orchestrator instance.
 @orchestratorInstanceId = f66d07250e18402ea10b51a2aaa7bb84
-@storageCode = GLoOdgAOebifkr6wfEqmaMSAzrwtRlrSRw7O/gtiarfvo2ofQGmqXQ==
+@storageCode = 1BydX/YVRj1/olUY7XxQ7Lf1xFs9seG00DUa3hl1grb2ehoS5T3bCQ==
 @hubName=DurableDemo
 GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{orchestratorInstanceId}}
     ?taskHub={{hubName}}
