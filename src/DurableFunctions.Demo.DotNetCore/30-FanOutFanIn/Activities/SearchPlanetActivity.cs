@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators.Models;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 

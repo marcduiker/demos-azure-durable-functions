@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 // ReSharper disable once CheckNamespace
 namespace DurableFunctions.Demo.DotNetCore.Reflection
@@ -16,7 +17,7 @@ namespace DurableFunctions.Demo.DotNetCore.Reflection
                 .SelectMany(t => t.GetMethods())
                 .Where(m => m.GetCustomAttributes(typeof(FunctionNameAttribute)).Any())
                 .ToImmutableList();
-            var clientMethods = GetMethodsWithAttributeOf<OrchestrationClientAttribute>(functionMethods).ToImmutableList(); 
+            var clientMethods = GetMethodsWithAttributeOf<DurableClientAttribute>(functionMethods).ToImmutableList(); 
             var orchestratorMethods = GetMethodsWithAttributeOf<OrchestrationTriggerAttribute>(functionMethods).ToImmutableList();
             var activityMethods = GetMethodsWithAttributeOf<ActivityTriggerAttribute>(functionMethods).ToImmutableList();
             var otherMethods = functionMethods.Except(clientMethods).Except(orchestratorMethods)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace DurableFunctions.Demo.DotNetCore._40_Events.Orchestrations
     {
         [FunctionName(nameof(NeverEndingOrchestration))]
         public async Task Run(
-          [OrchestrationTrigger] DurableOrchestrationContextBase context,
+          [OrchestrationTrigger] IDurableOrchestrationContext context,
           ILogger logger)
         {
             await context.CreateTimer(

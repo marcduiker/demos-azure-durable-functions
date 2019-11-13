@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.Basics.Activities;
 using DurableFunctions.Demo.DotNetCore.Retry.Activities;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -12,7 +13,7 @@ namespace DurableFunctions.Demo.DotNetCore.Retry.Orchestrators
     {
         [FunctionName(nameof(FailingOrchestrator))]
         public async Task<string> Run(
-            [OrchestrationTrigger]DurableOrchestrationContextBase context,
+            [OrchestrationTrigger]IDurableOrchestrationContext context,
             ILogger log)
         {
             var result = await context.CallActivityWithRetryAsync<string>(

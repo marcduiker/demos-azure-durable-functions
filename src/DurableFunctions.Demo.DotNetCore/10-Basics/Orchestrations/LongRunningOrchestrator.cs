@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.Basics.Activities;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -10,7 +11,7 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Orchestrators
     {
         [FunctionName(nameof(LongRunningOrchestrator))]
         public async Task<string> Run(
-            [OrchestrationTrigger]DurableOrchestrationContextBase context,
+            [OrchestrationTrigger]IDurableOrchestrationContext context,
             ILogger log)
         {
             var sleepTimeSeconds = context.GetInput<int>();

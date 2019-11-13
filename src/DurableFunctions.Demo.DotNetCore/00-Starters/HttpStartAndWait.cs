@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
@@ -24,11 +25,11 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
         [FunctionName(nameof(HttpStartAndWait))]
         public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "startandwait/{orchestratorName}")]HttpRequestMessage request, 
-            [OrchestrationClient]DurableOrchestrationClientBase orchestratorClient,
+            [DurableClient]IDurableClient orchestratorClient,
             string orchestratorName,
             ILogger log)
         { 
-            dynamic orchestratorInput = await request.Content.ReadAsAsync<object>();
+            var orchestratorInput = await request.Content.ReadAsAsync<object>();
             string instanceId = await orchestratorClient.StartNewAsync(
                 orchestratorName, 
                 orchestratorInput);
