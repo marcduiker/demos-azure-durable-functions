@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Activities;
 using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators.Models;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -13,7 +14,7 @@ namespace DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators
     {
         [FunctionName(nameof(GetPlanetResidentsOrchestrator))]
         public async Task<PlanetResidents> Run(
-            [OrchestrationTrigger]DurableOrchestrationContextBase context,
+            [OrchestrationTrigger]IDurableOrchestrationContext context,
             ILogger log)
         {
             var planetName = context.GetInput<string>();

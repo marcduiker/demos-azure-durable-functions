@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -8,7 +9,8 @@ namespace DurableFunctions.Demo.DotNetCore.Basics.Activities
     {
         [FunctionName(nameof(HelloWorldActivity))]
         public string Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            // IDurableActivityContext -> IIDurableActivityContext
+            [ActivityTrigger] IDurableActivityContext activityContext,
             ILogger logger)
         {
             logger.Log(

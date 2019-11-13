@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
@@ -22,13 +23,13 @@ namespace DurableFunctions.Demo.DotNetCore.Starters
         /// <returns>An HttpResponseMessage containing the id and status of the Orchestrator instance.</returns>
         [FunctionName(nameof(HttpStart))]
         public async Task<HttpResponseMessage> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "start/{orchestratorName}/{id?}")]HttpRequestMessage req, 
-            [OrchestrationClient]DurableOrchestrationClientBase orchestratorClient,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "start/{orchestratorName}/{id?}")]HttpRequestMessage req,
+            [DurableClient]IDurableClient orchestratorClient,
             string orchestratorName,
             string id,
             ILogger log)
         {
-            dynamic orchestratorInput = await req.Content.ReadAsAsync<object>();
+            var orchestratorInput = await req.Content.ReadAsAsync<object>();
 
             string instanceId = id;
             if (string.IsNullOrEmpty(instanceId))

@@ -4,6 +4,7 @@ using DurableFunctions.Demo.DotNetCore.Chaining.Activities;
 using DurableFunctions.Demo.DotNetCore.Chaining.Activities.Models;
 using DurableFunctions.Demo.DotNetCore.Chaining.Orchestrators.Models;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -13,7 +14,7 @@ namespace DurableFunctions.Demo.DotNetCore.Chaining.Orchestrators
     {
         [FunctionName(nameof(GetCharacterInfoOrchestrator))]
         public async Task<CharacterInfo> Run(
-            [OrchestrationTrigger]DurableOrchestrationContextBase context,
+            [OrchestrationTrigger]IDurableOrchestrationContext context,
             ILogger log)
         {
             var name = context.GetInput<string>();

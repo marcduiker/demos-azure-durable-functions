@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +22,7 @@ namespace DurableFunctions.Demo.DotNetCore.Status
         [FunctionName(nameof(HttpGetStatusForMany))]
         public async Task<IList<DurableOrchestrationStatus>> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "status")]HttpRequestMessage req,
-            [OrchestrationClient]DurableOrchestrationClientBase OrchestratorClient,
+            [DurableClient]IDurableClient OrchestratorClient,
             ILogger log)
         {
             var getStatusRequest = await req.Content.ReadAsAsync<GetStatusRequest>();

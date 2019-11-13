@@ -6,6 +6,7 @@ using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators;
 using DurableFunctions.Demo.DotNetCore.FanOutFanIn.Orchestrators.Models;
 using FluentAssertions;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -63,9 +64,9 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrators
 
         }
 
-        private static DurableOrchestrationContextBase GetFakeOrchestratorContextReturnNullForPlanet()
+        private static IDurableOrchestrationContext GetFakeOrchestratorContextReturnNullForPlanet()
         {
-            var mock = new Mock<DurableOrchestrationContextBase>(MockBehavior.Strict);
+            var mock = new Mock<IDurableOrchestrationContext>(MockBehavior.Strict);
             mock.Setup(
                 context => context.GetInput<string>())
                 .Returns("tatooine");
@@ -79,10 +80,10 @@ namespace DurableFunctions.Demo.DotNetCore.Test.FanOutFanIn.Orchestrators
             return mock.Object;
         }
 
-        private DurableOrchestrationContextBase GetFakeOrchestratorContextWithPlanetAndCharacters(int numberOfResidents = 3)
+        private IDurableOrchestrationContext GetFakeOrchestratorContextWithPlanetAndCharacters(int numberOfResidents = 3)
         {
             _fixture.RepeatCount = numberOfResidents;
-            var mock = new Mock<DurableOrchestrationContextBase>(MockBehavior.Strict);
+            var mock = new Mock<IDurableOrchestrationContext>(MockBehavior.Strict);
             mock.Setup(
                 context => context.GetInput<string>())
                 .Returns("tatooine");

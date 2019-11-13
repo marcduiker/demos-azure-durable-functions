@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DurableTask.Core;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore._02_Maintenance
@@ -17,7 +18,7 @@ namespace DurableFunctions.Demo.DotNetCore._02_Maintenance
         [FunctionName(nameof(PurgeHistoryForMany))]
         public async Task Run(
             [TimerTrigger(EveryDayAt730AM)]TimerInfo myTimer, 
-            [OrchestrationClient] DurableOrchestrationClientBase client,
+            [DurableClient] IDurableClient client,
             ILogger log)
         {
             var instancesCreatedFromDate = DateTime.Today.Subtract(TimeSpan.FromDays(14));
