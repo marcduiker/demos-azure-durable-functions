@@ -31,7 +31,11 @@ namespace DurableFunctions.Demo.DotNetCore.Status
             var parameters = GetQueryStringParameters(request);
             if (parameters.hasParameters)
             {
-                status = await orchestratorClient.GetStatusAsync(id, parameters.showHistory, parameters.showHistoryOutput, parameters.showInput);
+                status = await orchestratorClient.GetStatusAsync(
+                    id, 
+                    parameters.showHistory, 
+                    parameters.showHistoryOutput, 
+                    parameters.showInput);
             }    
             else
             {
@@ -55,7 +59,7 @@ namespace DurableFunctions.Demo.DotNetCore.Status
                 string showHistoryOutputString = request.RequestUri.ParseQueryString().Get("showHistoryOutput");
                 bool.TryParse(showHistoryOutputString, out showHistoryOutput);
                 string showInputString = request.RequestUri.ParseQueryString().Get("showInput");
-                bool.TryParse(showInputString, out showHistoryOutput);
+                bool.TryParse(showInputString, out showInput);
             }
 
             return (hasParameters, showHistory, showHistoryOutput, showInput);
