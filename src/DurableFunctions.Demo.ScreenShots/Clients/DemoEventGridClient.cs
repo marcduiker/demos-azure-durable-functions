@@ -12,7 +12,7 @@ namespace DurableFunctions.Demo.ScreenShots.Clients
 {
     public class DemoEventGridClient
     {
-        [FunctionName(nameof(DemoEventGridClient))]
+        //[FunctionName(nameof(DemoEventGridClient))]
         public async Task Run(
             [EventGrid(TopicEndpointUri = "", TopicKeySetting = "" )]EventGridEvent eventGridEvent,
             [DurableClient]IDurableClient orchestrationClient,

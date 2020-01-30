@@ -15,8 +15,7 @@ namespace DurableFunctions.Demo.ScreenShots.Clients
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "multiple")]
                 HttpRequestMessage req,
             [DurableClient]IDurableClient orchestrationClient,
-            string orchestratorName,
-            ILogger log)
+                ILogger log)
         {
             var orchestratorInput = await req.Content.ReadAsAsync<object>();
 
