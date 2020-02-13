@@ -7,10 +7,10 @@ namespace DurableFunctions.Demo.ScreenShots.Models
     {
         public Function1Result(IEnumerable<string> details)
         {
-            Result = details;
+            Details = details;
         }
 
         public Guid Id { get; set; }
-        public IEnumerable<string> Result { get; set; }
+        public IEnumerable<string> Details { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DurableFunctions.Demo.ScreenShots.Activities;
 using DurableFunctions.Demo.ScreenShots.Models;
@@ -20,11 +21,15 @@ namespace DurableFunctions.Demo.ScreenShots.Orchestrators
             var function1Result = await context.CallActivityAsync<Function1Result>(
                 nameof(ActivityFunction1),
                 name);
-        
-            var function2Result = await context.CallActivityAsync<Function2Result>(
-                nameof(ActivityFunction2),
-                function1Result);
-        
+
+            Function2Result function2Result = null;
+            if (function1Result.Details.Any())
+            {
+                function2Result = await context.CallActivityAsync<Function2Result>(
+                    nameof(ActivityFunction2),
+                    function1Result);
+            }
+
             var orchestratorResult = new DemoOrchestratorResult(function1Result, function2Result);
             return orchestratorResult;
         }
@@ -38,12 +43,16 @@ namespace DurableFunctions.Demo.ScreenShots.Orchestrators
             var function1Result = await context.CallActivityAsync<Function1Result>(
                 nameof(ActivityFunction1),
                 name);
-        
-            var function2Result = await context.CallActivityWithRetryAsync<Function2Result>(
-                nameof(ActivityFunction2),
-                GetDefaultRetryOptions(),
-                function1Result);
-        
+
+            Function2Result function2Result = null;
+            if (function1Result.Details.Any())
+            {
+                function2Result = await context.CallActivityWithRetryAsync<Function2Result>(
+                    nameof(ActivityFunction2),
+                    GetDefaultRetryOptions(),
+                    function1Result);
+            }
+
             var orchestratorResult = new DemoOrchestratorResult(function1Result, function2Result);
             return orchestratorResult;
         }
@@ -92,7 +101,7 @@ namespace DurableFunctions.Demo.ScreenShots.Orchestrators
                 name);
         
             var orchestratorAResult = await context.CallSubOrchestratorWithRetryAsync<DemoOrchestratorAResult>(
-                nameof(DemoOrchestratorB),
+                nameof(DemoOrchestratorA),
                 GetDefaultRetryOptions(),
                 function1Result);
             

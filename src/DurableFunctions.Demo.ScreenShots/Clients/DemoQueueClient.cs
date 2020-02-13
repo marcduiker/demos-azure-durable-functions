@@ -10,19 +10,18 @@ using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.ScreenShots.Clients
 {
-    public class DemoEventGridClient
+    public class DemoQueueClient
     {
-        [FunctionName(nameof(DemoEventGridClient))]
+        [FunctionName(nameof(DemoQueueClient))]
         public async Task Run(
-            [EventGridTrigger]EventGridEvent eventGridEvent,
+            [QueueTrigger("orchestrator-x-messages", Connection = "MessagingStorageConnection" )]
+                string message,
             [DurableClient]IDurableClient orchestrationClient,
             ILogger log)
         {
-            var orchestratorInput = eventGridEvent.Data;
-
             var instanceId = await orchestrationClient.StartNewAsync(
                 nameof(DemoOrchestratorB),
-                orchestratorInput);
+                message);
         }
     }
 }

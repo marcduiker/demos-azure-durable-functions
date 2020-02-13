@@ -1,7 +1,20 @@
 {
     "version": "2.0",
     "durableTask": {
-        "eventGridTopicEndpoint": "https://<topic_name>.westus2-1.eventgrid.azure.net/api/events",
-        "eventGridKeySettingName": "EventGridKey"
+        "notifications": {
+            "eventGrid": {
+              "topicEndpoint": "https://demoeventgridtopic.westeurope-1.eventgrid.azure.net/api/events",
+              "keySettingName": "EventGridKey",
+              "publishRetryCount": 3,
+              "publishRetryInterval": "00:00:30",
+              "publishEventTypes": [
+                "Started",
+                "Pending",
+                "Failed",
+                "Terminated"
+              ]
+            }
+          }
     }
 }
+
