@@ -5,6 +5,8 @@
     "SkipRemoteSwapi": false,
     "SwapiBaseUrl": "https://swapi.co/api/",
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "AzureWebJobsDashboard": "UseDevelopmentStorage=true"
+    "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
+    "EventsStorageConnection" : "UseDevelopmentStorage=true",
+    "FUNCTIONS_V2_COMPATIBILITY_MODE" : true
   }
 }

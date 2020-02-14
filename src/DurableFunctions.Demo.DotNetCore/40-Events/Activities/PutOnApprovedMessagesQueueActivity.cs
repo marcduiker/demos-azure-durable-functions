@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace DurableFunctions.Demo.DotNetCore.Activities
 {
-    public class PutMessageOnQueueActivity
+    public class PutOnApprovedMessagesQueueActivity
     {
-        [FunctionName(nameof(PutMessageOnQueueActivity))]
-        [return: Queue("QueueName", Connection = "ConnectionName")]
+        [FunctionName(nameof(PutOnApprovedMessagesQueueActivity))]
+        [return: Queue("approved-messages", Connection = "EventsStorageConnection")]
         public Message Run(
             [ActivityTrigger] Message message,
             ILogger logger)
