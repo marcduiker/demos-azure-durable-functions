@@ -11,7 +11,7 @@ namespace DurableFunctions.Demo.DotNetCore.Reflection
     public class GetFunctionMethods
     {
         [FunctionName("GetFunctionMethods")]
-        public async Task<IActionResult> Run(
+        public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
         {
             var functionsOverview = FunctionNameExtractor.GetFunctionsOverview(Assembly.GetExecutingAssembly());

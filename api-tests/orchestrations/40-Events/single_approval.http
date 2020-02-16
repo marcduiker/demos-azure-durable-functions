@@ -1,0 +1,46 @@
+### Start the SingleApprovalOrchestrator
+# @name SingleApprovalOrchestrator
+@root=http://localhost:7071
+
+POST {{root}}/api/start/SingleApprovalOrchestrator
+Content-Type: application/json
+
+{
+    "Sender" : "Marc",
+    "Content" : "Message for SingleApprovalOrchestrator"
+}
+
+@instanceId={{SingleApprovalOrchestrator.response.body.$.id}}
+
+
+
+### Get the status for SingleApprovalOrchestrator
+@taskHub=DurableDemo
+GET {{root}}/runtime/webhooks/durabletask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
+    &showInput=true
+
+
+### Raise one Approve event using orchestration client
+@eventName=ApproveEvent
+
+POST {{root}}/api/approval/{{eventName}}/{{instanceId}}
+Content-Type: application/json
+
+{
+    "name" : "Approver",
+    "isApproved" : true
+}
+
+
+### Raise one Approve event using built-in Http API
+@eventName=ApproveEvent
+
+POST {{root}}/runtime/webhooks/durabletask/instances/{{instanceId}}/raiseevent/{{eventName}}
+    ?taskHub={{taskHub}}
+Content-Type: application/json
+
+{
+    "name" : "Approver",
+    "isApproved" : false
+}

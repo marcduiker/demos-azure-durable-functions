@@ -1,0 +1,36 @@
+# @name ExternalEventRequest
+POST http://localhost:7071/api/start/DemoOrchestratorExternalEvent/
+Content-Type: application/json
+
+""
+
+### Approval 1
+@instanceId = {{ExternalEventRequest.response.body.$.id}}
+POST http://localhost:7071/api/sendevent/{{instanceId}}/
+Content-Type: application/json
+
+{
+    "eventName" : "ApprovalEvent1",
+    "isApproved" : true
+}
+
+
+### Approval 2
+
+POST http://localhost:7071/api/sendevent/{{instanceId}}/
+Content-Type: application/json
+
+{
+    "eventName" : "ApprovalEvent2",
+    "isApproved" : true
+}
+
+### Approval 3
+
+POST http://localhost:7071/api/sendevent/{{instanceId}}/
+Content-Type: application/json
+
+{
+    "eventName" : "ApprovalEvent3",
+    "isApproved" : true
+}

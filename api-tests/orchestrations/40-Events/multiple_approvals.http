@@ -1,0 +1,35 @@
+### Start the MultipleApprovalOrchestrator
+# @name MultipleApprovalOrchestrator
+@root=http://localhost:7071
+
+POST {{root}}/api/start/MultipleApprovalOrchestrator
+Content-Type: application/json
+
+{
+    "Sender" : "Marc",
+    "Content" : "Message for MultipleApprovalOrchestrator"
+}
+
+@instanceId={{MultipleApprovalOrchestrator.response.body.$.id}}
+
+
+
+### Get the status for MultipleApprovalOrchestrator
+@taskHub=DurableDemo
+GET {{root}}/runtime/webhooks/durabletask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
+    &showInput=true
+
+
+
+### Raise one Approve event
+@eventName=ApproveEvent1
+
+POST {{root}}/runtime/webhooks/durabletask/instances/{{instanceId}}/raiseevent/{{eventName}}
+    ?taskHub={{taskHub}}
+Content-Type: application/json
+
+{
+    "name" : "Approver 1",
+    "isApproved" : true
+}

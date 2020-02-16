@@ -1,0 +1,21 @@
+### Start the SingleApprovalWithTimeOutOrchestrator
+# @name SingleApprovalWithTimeOutOrchestrator
+@root=http://localhost:7071
+
+POST {{root}}/api/start/SingleApprovalWithTimeOutOrchestrator
+Content-Type: application/json
+
+{
+    "Sender" : "Marc",
+    "Content" : "Message for SingleApprovalWithTimeOutOrchestrator"
+}
+
+@instanceId={{SingleApprovalWithTimeOutOrchestrator.response.body.$.id}}
+
+
+
+### Get the status for SingleApprovalWithTimeOutOrchestrator
+@taskHub=DurableDemo
+GET {{root}}/runtime/webhooks/durabletask/instances/{{instanceId}}
+    ?taskHub={{taskHub}}
+    &showInput=true
