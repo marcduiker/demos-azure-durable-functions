@@ -1,0 +1,22 @@
+$rg="demo-eventgrid-rg"
+az group create --name $rg --location westeurope
+
+### Create and query the topic
+$topic="DemoEventGridTopic1"
+az eventgrid topic create --name $topic -l westeurope -g $rg
+az eventgrid topic show --name $topic -g $rg
+az eventgrid topic show --name $topic -g $rg --query "endpoint" --output tsv
+az eventgrid topic key list --name $topic -g $rg --query "key1" --output tsv
+
+### Get the EventGrid key from the Function App
+GET https://demo-eventgrid-fa.azurewebsites.net/admin/host/systemkeys/eventgrid_extension?code={MASTER_KEY}
+
+### Create the topic subscription
+az eventgrid event-subscription create
+--name DemoTopicSubscription
+--source-resource-id "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/demo-eventgrid-rg/providers/
+                    Microsoft.EventGrid/topics/DemoEventGridTopic"
+--endpoint "https://demo-eventgrid-fa.azurewebsites.net//admin/extensions/EventGridExtensionConfig
+            ?functionName=DemoEventGridClient&code={EVENTGRID_KEY}"
+
+

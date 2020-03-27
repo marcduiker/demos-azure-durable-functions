@@ -1,0 +1,15 @@
+### Get all orchestration instances started within 
+### a given period and matching the runtime status.
+GET http://localhost:7071/runtime/webhooks/durabletask/instances?
+    &createdTimeFrom=2010-02-02T00:00:0Z
+    &createdTimeTo=2010-02-05T00:00:0Z
+    &runtimeStatus=Running
+    &showInput=true
+
+
+###
+@instanceId=323dcc18123641e99730d33250919a68
+GET http://localhost:7071/runtime/webhooks/durabletask/instances/{{instanceId}}?
+    &showHistory=true
+    &showHistoryOutput=true
+    &showInput=true

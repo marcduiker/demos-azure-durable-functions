@@ -19,7 +19,7 @@ namespace DurableFunctions.Demo.DotNetCore._40_Events.Orchestrations
 
             var approval = await context.WaitForExternalEvent(
                 EventNames.SingleApproveEvent,
-                TimeSpan.FromSeconds(10),
+                TimeSpan.FromHours(24),
                 ApprovalBuilder.BuildDefault());
 
              var putOnQueueActivity = approval.IsApproved ? 
